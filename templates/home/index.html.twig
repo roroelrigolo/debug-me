@@ -10,18 +10,5 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-    <ul>
-        <li>
-            <a href="{{ path('app_register') }}">S'inscrire</a>
-        </li>
-        <li>
-            <a href="{{ path('app_login') }}">Se connecter</a>
-        </li>
-        {% if app.user %}
-            <li>
-                <a href="{{ path('app_logout') }}">Se déconnecter</a>
-            </li>
-        {% endif %}
-    </ul>
 </div>
 {% endblock %}
