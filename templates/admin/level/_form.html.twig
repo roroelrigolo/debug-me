@@ -1,0 +1,21 @@
+{{ form_start(form, {
+    'attr': {'class': 'lg:w-1/2'}}) }}
+    {{ form_row(form.name, {
+        'label_attr': {'class': 'font-bold mb-2'},
+        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
+    {{ form_row(form.step, {
+        'label_attr': {'class': 'font-bold mb-2'},
+        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
+    {{ form_row(form.stage, {
+        'label_attr': {'class': 'font-bold mb-2'},
+        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
+<div class="flex">
+    {% include 'admin/assets/button/btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
+    {{ form_end(form) }}
+    {% if app.request.attributes.get('_route') == "app_admin_level_edit"  %}
+        {% include 'admin/level/_delete_form.html.twig' %}
+    {% endif %}
+</div>
+
+
+

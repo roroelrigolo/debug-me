@@ -1,0 +1,23 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    {% include 'admin/assets/text/title_index.html.twig' with {'text': 'Utilisateurs'} %}
+    <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des utilisateurs.</p>
+    {% include 'admin/assets/button/btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouvel utilisateur', 'route': 'app_admin_user_new'} %}
+
+    {% for message in app.flashes('success') %}
+        <div class="my-4">
+            {% include 'admin/assets/alert/success.html.twig' %}
+        </div>
+    {% endfor %}
+
+    {% include 'admin/assets/table/table.html.twig' with {
+        'titles': ['Pseudo','Email','Rôle'],
+        'datas' : datas,
+        'class' : ['','',''],
+        'route_edit' : 'app_admin_user_edit'
+    }
+    %}
+{% endblock %}

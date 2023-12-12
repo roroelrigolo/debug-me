@@ -1,0 +1,5 @@
+{% if tag == "a" %}
+    <p class="font-bungee w-fit text-white bg-tertiary p-4 rounded-xl"><a href="{{ path(route) }}">{{ text }}</a></p>
+{% elseif tag == "button" %}
+    <button class="font-bungee w-fit text-white bg-dark p-4 rounded-xl me-2" type="submit" class="btn">{{ text }}</button>
+{% endif %}

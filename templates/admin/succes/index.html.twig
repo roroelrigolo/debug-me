@@ -1,0 +1,24 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Succès{% endblock %}
+
+{% block body %}
+    {% include 'admin/assets/text/title_index.html.twig' with {'text': 'Succès'} %}
+    <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des succès.</p>
+    {% include 'admin/assets/button/btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau succès', 'route': 'app_admin_succes_new'} %}
+
+    {% for message in app.flashes('success') %}
+        <div class="my-4">
+            {% include 'admin/assets/alert/success.html.twig' %}
+        </div>
+    {% endfor %}
+
+    {% include 'admin/assets/table/table.html.twig' with {
+        'titles': ['Nom','Description'],
+        'datas' : datas,
+        'class' : ['',''],
+        'route_edit' : 'app_admin_succes_edit'
+    }
+    %}
+{% endblock %}
+

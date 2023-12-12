@@ -1,0 +1,14 @@
+{% extends '/front/base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <div class="flex justify-center">
+        <div class="basis-1/6"></div>
+        <div class="basis-4/6">
+            <p class="fs-22">Ajouter un ticket</p>
+            {{ include('/front/ticket/_form.html.twig') }}
+        </div>
+        <div class="basis-1/6"></div>
+    </div>
+{% endblock %}

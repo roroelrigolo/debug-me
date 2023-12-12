@@ -1,0 +1,9 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: my_toolsbar
+    toolbars:
+        configs:
+            my_toolsbar: [[ 'Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo','-', 'Link', 'Unlink','-','Image', 'Table', 'Iframe','-', 'Blockquote', 'CreateDiv', ],
+                          ['Bold', 'Italic', 'Underline', 'Strike', '-', 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock','-','Styles', 'Format', 'Font', 'FontSize','TextColor', 'BGColor' ]
+            ]

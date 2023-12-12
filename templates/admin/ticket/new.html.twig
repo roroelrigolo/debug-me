@@ -1,0 +1,8 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Tickets{% endblock %}
+
+{% block body %}
+    {% include 'admin/assets/text/title_index.html.twig' with {'text': "Ajout d'un ticket"} %}
+    {% include 'admin/ticket/_form.html.twig' with {'text_btn': "Ajouter le ticket"} %}
+{% endblock %}

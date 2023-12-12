@@ -17,6 +17,9 @@ Encore
     //Tailwind
     .enablePostCssLoader()
 
+    //SASS
+    .enableSassLoader()
+
     /*
      * ENTRY CONFIG
      *

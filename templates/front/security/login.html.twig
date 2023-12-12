@@ -1,0 +1,32 @@
+{% extends '/front/base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="flex h-screen">
+        <div class="lg:w-1/2 bg-primary flex flex-col justify-center h-full px-14">
+            <img class="mb-4" width="200" src="/img/logo_fond_blanc.png">
+            <p class="font-bungee text-white text-4xl pb-2">Bienvenue sur debug.me</p>
+            <p class="text-white">Debugguer son code, c’est mener une enquête dans laquelle vous êtes aussi le meurtrier. 🕵🏻‍♂</p>
+        </div>
+        <div class="lg:w-1/2">
+            <div class="flex flex-col justify-center h-full px-14">
+                <h1 class="font-bungee text-4xl pb-2">Connectez-vous</h1>
+                {% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <form class="flex flex-col justify-center lg:w-1/2" action="{{ path('app_login') }}" method="post">
+                    <label class="font-bold mb-2" for="username">Email</label>
+                    <input class="border rounded p-2 mb-2" type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+                    <label class="font-bold mb-2" for="password">Mot de passe</label>
+                    <input class="border rounded p-2 mb-2" type="password" id="password" name="_password"/>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <p class="mb-4">Pas encore de compte ?<a class="text-primary underline" href="/register">Inscrivez-vous</a></p>
+                    <button class="font-bungee w-fit text-white bg-primary p-4 rounded-xl" type="submit">Se connecter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

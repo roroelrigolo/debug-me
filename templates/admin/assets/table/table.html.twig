@@ -1,0 +1,30 @@
+<table class="table-auto mt-4 pb-4">
+    <thead class="bg-black text-white border border-black rounded-tl-xl">
+    <tr>
+        {% for title in titles %}
+            <th class="text-start p-4">{{ title }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+        {% for data in datas %}
+        <tr class="border border-black">
+            {% for value in data.data[0] %}
+                <td class="p-4">
+                    <a href="{% if route_edit %}{{ path(route_edit, {'id':data.id}) }}{% endif %}">
+                        {% if value is iterable %}
+                            <p class="{{ class[loop.index-1] }}">
+                                {% for datavalue in value %}
+                                    {{ datavalue }}
+                                {% endfor %}
+                            </p>
+                        {% else %}
+                            <p class="{{ class[loop.index-1] }}">{{ value|raw }}</p>
+                        {% endif %}
+                    </a>
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

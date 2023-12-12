@@ -1,0 +1,8 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block body %}
+    {% include 'admin/assets/text/title_index.html.twig' with {'text': "Modification d'un tag"} %}
+    {% include 'admin/tag/_form.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
+{% endblock %}
