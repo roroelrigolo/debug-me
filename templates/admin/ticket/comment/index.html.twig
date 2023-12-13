@@ -1,0 +1,54 @@
+{% extends '/admin/base.html.twig' %}
+
+{% block title %}Tickets{% endblock %}
+
+{% block body %}
+    <div class="flex">
+        <div class="lg:w-1/3">
+            {% include 'admin/assets/text/title_index_light.html.twig' with {'text': 'Ticket'} %}
+            {% include 'admin/ticket/_form_disabled.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
+        </div>
+        <div class="lg:w-2/3 ps-10">
+            {% include 'admin/assets/text/title_index.html.twig' with {'text': 'Modification des commentaires'} %}
+
+            {% for message in app.flashes('success') %}
+                <div class="my-4">
+                    {% include 'admin/assets/alert/success.html.twig' %}
+                </div>
+            {% endfor %}
+
+            {% if comments is empty %}
+                <p>Aucun commentaire pour le moment</p>
+            {% endif %}
+
+            {% for comment in comments %}
+                <div class="border rounded-xl p-4 mb-4">
+                    <div class="flex justify-between mb-4">
+                        <div class="flex items-center">
+                            <p>{{ comment.author.username }}</p>
+                            <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
+                        </div>
+                        {% include 'admin/assets/button/btn_red.html.twig' with
+                            {
+                                'tag': 'a',
+                                'text': '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.99489 9.47663C10.2734 9.47663 10.5 9.70613 10.5 9.98831C10.5 10.271 10.2734 10.5 9.99489 10.5H7.13984C6.86129 10.5 6.63473 10.271 6.63473 9.98831C6.63473 9.70613 6.86129 9.47663 7.13984 9.47663H9.99489ZM8.01493 1.84953L8.75243 2.43539C9.05486 2.67189 9.25648 2.98363 9.32546 3.31149C9.40504 3.67215 9.32015 4.02635 9.08139 4.33272L4.6882 10.014C4.48658 10.2719 4.18945 10.4171 3.87111 10.4224L2.1202 10.4439C2.02469 10.4439 1.94511 10.3794 1.92388 10.2881L1.52595 8.56274C1.45697 8.24562 1.52595 7.91775 1.72757 7.66514L4.84207 3.63399C4.89512 3.56949 4.99063 3.55928 5.0543 3.60711L6.36483 4.64984C6.44972 4.71971 6.56645 4.75733 6.68848 4.74121C6.94846 4.70896 7.12356 4.47247 7.09703 4.21985C7.08111 4.09085 7.01744 3.98335 6.93255 3.90273C6.90602 3.88123 5.65916 2.88151 5.65916 2.88151C5.57957 2.81701 5.56365 2.69876 5.62732 2.61867L6.12076 1.97853C6.57706 1.39267 7.37293 1.33892 8.01493 1.84953Z" fill="#FCFAF9"/></svg> Modifier',
+                                'size': 'text-xs',
+                                'route': 'app_admin_ticket_comment_edit',
+                                'route_parameter': {0:{'name':'id','value':ticket.id},1:{'name':'idComment','value':comment.id}}
+                            }
+                        %}
+                    </div>
+                    {% set content = comment.content|html_entity_decode %}
+                    {% for co in content|recupererToutesOccurrencesCode %}
+                        {% if co.type == "code" %}
+                            <pre><code class="language-html">{{ co.content}}</code></pre>
+                        {% else %}
+                            {{ co.content|raw }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+

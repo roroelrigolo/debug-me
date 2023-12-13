@@ -11,7 +11,8 @@
         'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
     {{ form_row(form.content, {
         'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
+        'attr': {'class': 'border rounded p-2 w-full'}}) }}
+<p class="mb-4"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
 <div class="flex">
     {% include 'admin/assets/button/btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
     {{ form_end(form) }}

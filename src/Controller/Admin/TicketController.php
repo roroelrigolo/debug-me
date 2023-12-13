@@ -2,9 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Comment;
 use App\Entity\Ticket;
+use App\Form\CommentFormType;
 use App\Form\TicketFormType;
+use App\Repository\CommentRepository;
 use App\Repository\TicketRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +34,7 @@ class TicketController extends AbstractController
                 $tickets[$i]->getTitle(),
                 $tickets[$i]->getAuthor()->getUsername(),
                 $tags,
-                $tickets[$i]->getCreatedAt()->format('d/m/Y'),
-                'Voir les commentaires'
+                $tickets[$i]->getCreatedAt()->format('d/m/Y')
             ];
             array_push($datas[$i]['data'],$array);
         }
@@ -76,6 +79,54 @@ class TicketController extends AbstractController
             'ticket' => $ticket,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/{id}/comment', name: 'app_admin_ticket_comment', methods: ['GET', 'POST'])]
+    public function comment(Request $request, Ticket $ticket, CommentRepository $commentRepository): Response
+    {
+        $form = $this->createForm(TicketFormType::class, $ticket);
+        $form->handleRequest($request);
+
+        $comments = $commentRepository->findBy(['ticket'=>$ticket],['updated_at'=>'DESC']);
+
+        return $this->render('admin/ticket/comment/index.html.twig', [
+            'ticket' => $ticket,
+            'comments' => $comments,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}/comment/{idComment}/edit', name: 'app_admin_ticket_comment_edit', methods: ['GET', 'POST'])]
+    public function commentEdit(
+        #[MapEntity(mapping:['id'=>'id'])] Ticket $ticket,
+        #[MapEntity(mapping:['idComment'=>'id'])] Comment $comment,
+        Request $request, TicketRepository $ticketRepository, CommentRepository $commentRepository, $id, $idComment): Response
+    {
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUpdatedAt(new \DateTime());
+            $commentRepository->add($comment);
+            $this->addFlash('success', 'Commentaire modifié avec succès');
+            return $this->redirectToRoute('app_admin_ticket_comment', ['id'=>$ticket->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/ticket/comment/edit.html.twig', [
+            'ticket' => $ticket,
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}/comment/{idComment}', name: 'app_admin_ticket_comment_delete', methods: ['POST'])]
+    public function commentDelete(Request $request, Ticket $ticket, Comment $comment, CommentRepository $commentRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $commentRepository->remove($comment);
+            $this->addFlash('success', 'Commentaire supprimé avec succès');
+        }
+        return $this->redirectToRoute('app_admin_ticket_comment', ['id'=>$ticket->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_admin_ticket_delete', methods: ['POST'])]

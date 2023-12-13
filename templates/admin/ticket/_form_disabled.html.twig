@@ -1,0 +1,19 @@
+{{ form_start(form, {
+    'attr': {'class': ''}}) }}
+    {{ form_row(form.title, {
+        'label_attr': {'class': 'font-bold text-darklight mb-2'},
+        'attr': {'class': 'border text-darklight rounded p-2 mb-4 w-full','disabled': 'disabled'}}) }}
+    {{ form_row(form.tags, {
+        'label_attr': {'class': 'font-bold text-darklight mb-2'},
+        'attr': {'class': 'border text-darklight rounded p-2 mb-4 w-full','disabled': 'disabled'}}) }}
+    {{ form_row(form.author, {
+        'label_attr': {'class': 'font-bold text-darklight mb-2'},
+        'attr': {'class': 'border text-darklight rounded p-2 mb-4 w-full','disabled': 'disabled'}}) }}
+    {{ form_row(form.content, {
+        'label_attr': {'class': 'font-bold text-darklight mb-2'},
+        'attr': {'class': 'border text-darklight rounded p-2 w-full','disabled': 'disabled'}}) }}
+<p class="mb-4 text-darklight"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
+{{ form_end(form) }}
+
+
+

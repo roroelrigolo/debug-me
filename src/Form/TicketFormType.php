@@ -18,8 +18,13 @@ class TicketFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title',null, array(
+                'label' => "Titre",
+                'required' => true
+            ))
+            /*
             ->add('content', CKEditorType::class, array(
+                'label' => "Contenu",
                 'config' => array(
                     'uiColor' => '#ffffff',
                     'toolbar' => [
@@ -27,8 +32,13 @@ class TicketFormType extends AbstractType
                     ],
                     'language' => 'fr',
                 ),
+            ))*/
+            ->add('content', null, array(
+                'label' => "Contenu",
+                'attr' => ['rows' => 10],
             ))
             ->add('author', EntityType::class, array(
+                'label' => "Auteur",
                 'class'     => User::class,
                 'expanded'  => false,
                 'multiple'  => false,

@@ -13,12 +13,39 @@
         </div>
     {% endfor %}
 
-    {% include 'admin/assets/table/table.html.twig' with {
-        'titles': ['Titre','Auteur','Tags','Date de création','Commentaires'],
-        'datas' : datas,
-        'class' : ['','','','','font-bungee w-fit text-white bg-tertiary p-4 rounded-xl'],
-        'route_edit' : 'app_admin_ticket_edit'
-    }
-    %}
+    <div class="flex">
+        {% include 'admin/assets/table/table.html.twig' with {
+            'titles': ['Titre','Auteur','Tags','Date de création'],
+            'datas' : datas,
+            'class' : ['','','',''],
+            'route_edit' : 'app_admin_ticket_edit'
+        }
+        %}
+
+        <table class="table-auto mt-4 pb-4">
+            <thead class="bg-black text-white border border-black rounded-tl-xl">
+            <tr>
+                <th class="text-start p-4">Commentaires</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for ticket in datas %}
+                    <tr class="border border-black">
+                        <td class="p-4">
+                            {% include 'admin/assets/button/btn_red.html.twig' with
+                                {
+                                    'tag': 'a',
+                                    'text': 'Voir les commentaires',
+                                    'route': 'app_admin_ticket_comment',
+                                    'route_parameter': {0:{'name':'id','value':ticket.id}}
+                                }
+                            %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
 

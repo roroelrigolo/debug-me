@@ -1,5 +1,17 @@
+{% if route_parameter is defined %}
+    {% set parameter = {} %}
+    {% for data in route_parameter %}
+        {% set parameter = parameter|merge({(data.name):data.value}) %}
+    {% endfor %}
+{% endif %}
+
 {% if tag == "a" %}
-    <p class="font-bungee w-fit text-white bg-tertiary p-4 rounded-xl"><a href="{{ path(route) }}">{{ text }}</a></p>
+    <p class="font-bungee w-fit text-white bg-dark p-4 rounded-xl {{ size is defined ? size : 'text-base' }}">
+        <a class="flex"
+           href="{% if route_parameter is defined %}{{ path(route, parameter) }}{% else %}{{ path(route) }}{% endif %}">{{ text|raw }}</a>
+    </p>
 {% elseif tag == "button" %}
-    <button class="font-bungee w-fit text-white bg-dark p-4 rounded-xl me-2" type="submit" class="btn">{{ text }}</button>
+    <button class="font-bungee w-fit text-white bg-dark p-4 rounded-xl me-2 {{ size is defined ? size : 'text-base' }}" type="submit" class="btn">
+        {{ text|raw }}
+    </button>
 {% endif %}

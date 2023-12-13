@@ -25,6 +25,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "ckeditor5": "^40.1.0"
+        "ckeditor5": "^40.1.0",
+        "prismjs": "^1.29.0"
     }
 }

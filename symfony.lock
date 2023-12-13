@@ -35,6 +35,9 @@
             "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
         }
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v2.2.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
