@@ -9,6 +9,7 @@
 import './styles/style.scss';
 import './styles/_variables.scss';
 import './styles/admin.scss';
+import './styles/front.scss';
 
 import 'prismjs/themes/prism.css';
 require('prismjs');

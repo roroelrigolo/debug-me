@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         {% for data in datas %}
-        <tr class="border border-black">
+        <tr class="border border-black hover:bg-gray-200">
             {% for value in data.data[0] %}
                 <td class="p-4">
                     <a href="{% if route_edit %}{{ path(route_edit, {'id':data.id}) }}{% endif %}">

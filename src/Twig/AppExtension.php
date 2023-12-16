@@ -11,7 +11,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('agoCustom', [AppRuntime::class, 'AgoCustom']),
-            new TwigFilter('recupererToutesOccurrencesCode', [AppRuntime::class, 'recupererToutesOccurrencesCode']),
+            new TwigFilter('getContentCommentArray', [AppRuntime::class, 'getContentCommentArray']),
             new TwigFilter('html_entity_decode', 'html_entity_decode', ['is_safe' => ['html']]),
         ];
     }

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -39,6 +40,9 @@ class Ticket
 
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\Column(length: 255)]
+    private ?string $uuid = null;
 
     public function __construct()
     {
@@ -173,6 +177,18 @@ class Ticket
                 $comment->setTicket(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): static
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

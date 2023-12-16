@@ -1,0 +1,6 @@
+<li class="border rounded-2xl p-4 hover:text-white hover:bg-primary {% if controllerName == controller%}active{% endif %}">
+    <a class="flex font-bungee justify-center items-center" href="{{ path(route) }}">
+        {{ svg|raw }}
+        {{ text }}
+    </a>
+</li>

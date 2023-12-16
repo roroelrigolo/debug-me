@@ -1,0 +1,17 @@
+.front-menu{
+  .active{
+    background: #6817FF;
+    color: #FCFAF9;
+    path{
+      fill: #FCFAF9;
+    }
+  }
+  li:hover path,
+  div:hover path{
+    fill: #FCFAF9;
+  }
+}
+
+.card-ticket {
+  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.50);
+}

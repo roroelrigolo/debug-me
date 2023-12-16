@@ -4,6 +4,8 @@ namespace App\Controller\Front;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\LevelRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,15 +17,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository, LevelRepository $levelRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setDateRegister(new \DateTimeImmutable());
+            $user->setLevel($levelRepository->find(1));
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -31,8 +33,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $userRepository->add($user);
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_home');

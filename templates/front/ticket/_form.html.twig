@@ -1,10 +1,13 @@
 {{ form_start(form) }}
     {{ form_row(form.title,{ 'attr': {
-    'class' : 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'}}) }}
+    'class' : 'border rounded p-2 mb-4 w-full'}}) }}
     {{ form_row(form.content,{ 'attr': {
-        'class' : 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'}}) }}
+        'class' : 'border rounded p-2 w-full'}}) }}
+<p class="mb-4"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
     {{ form_row(form.tags,{ 'attr': {
     'class' : ''}}) }}
-<button type="submit" class="btn">Envoyer</button>
+<div class="flex">
+    {% include 'assets/button/btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
+</div>
 {{ form_end(form) }}
 

@@ -1,32 +1,26 @@
 {% extends '/front/base.html.twig' %}
 
-{% block title %}Hello TicketController!{% endblock %}
+{% block title %}Ticket{% endblock %}
 
 {% block body %}
     <div class="flex justify-center">
-        <div class="basis-1/6"></div>
-        <div class="basis-4/6">
-            <div class="flex justify-between mb-5">
-                <h1>Liste des tickets</h1>
-                <p><a href="{{ path('app_ticket_new') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter un ticket</a></p>
-            </div>
-            {% for ticket in tickets %}
-                <div class="flex justify-between mb-5">
-                    <div>
-                        <p>{{ ticket.title }}</p>
-                        <p> Tags :
-                        {% for tag in ticket.tags %}
-                            #{{ tag.name }}
-                        {% endfor %}
-                        </p>
-                        <a class="text-blue-500 hover:text-blue-800" href="{{ path('app_user_show', {'id':ticket.author.id}) }}">{{ ticket.author.username }}</a>
-                    </div>
-                    <div>
-                        <a href="{{ path('app_ticket_show', {'id':ticket.id}) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Voir</a>
-                    </div>
+        <div class="basis-1/4"></div>
+        <div class="basis-1/2 flex flex-col items-center">
+            <h1 class="font-bungee text-3xl	mb-4">Derniers tickets</h1>
+            {% include '/assets/button/btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
+
+            {% for message in app.flashes('success') %}
+                <div class="my-4">
+                    {% include 'assets/alert/success.html.twig' %}
                 </div>
             {% endfor %}
+
+            <div class="w-full grid grid-cols-2 gap-4">
+                {% for ticket in tickets %}
+                    {% include '/assets/ticket/ticket_single.html.twig' with {'ticket': ticket} %}
+                {% endfor %}
+            </div>
         </div>
-        <div class="basis-1/6"></div>
+        <div class="basis-1/4"></div>
     </div>
 {% endblock %}

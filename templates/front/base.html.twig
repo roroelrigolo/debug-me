@@ -13,9 +13,9 @@
         {% endblock %}
     </head>
     {% if app.request.attributes.get('_route') != "app_login" and app.request.attributes.get('_route') != "app_register"  %}
-        {{ include('front/assets/header/header.html.twig') }}
+        {{ include('assets/header/front/header.html.twig') }}
     {% endif %}
-    <body>
+    <body class="pb-4">
         {% block body %}{% endblock %}
     </body>
 </html>

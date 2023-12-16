@@ -35,7 +35,7 @@ class AppRuntime implements RuntimeExtensionInterface
         return $result;
     }
 
-    function extraireContenuCode($chaine) {
+    function extractContentCode($chaine) {
         // Définir la regex pour capturer le contenu entre les balises <code>
         $pattern = '/<code[^>]*>(.*?)<\/code>/s';
 
@@ -49,7 +49,7 @@ class AppRuntime implements RuntimeExtensionInterface
         }
     }
 
-    function extraireContenuSaufCode($chaine) {
+    function extractContentNoneCode($chaine) {
         // Définir la regex pour trouver le contenu entre les balises <code> et </code>
         $pattern = '/<code[^>]*>.*?<\/code>/s';
 
@@ -65,9 +65,9 @@ class AppRuntime implements RuntimeExtensionInterface
         return $contenus;
     }
 
-    function recupererToutesOccurrencesCode($chaine){
-        $arrayContent = $this->extraireContenuSaufCode($chaine);
-        $arrayCode = $this->extraireContenuCode($chaine);
+    function getContentCommentArray($chaine){
+        $arrayContent = $this->extractContentNoneCode($chaine);
+        $arrayCode = $this->extractContentCode($chaine);
 
         // Initialiser le tableau résultant
         $tableauFinal = array();

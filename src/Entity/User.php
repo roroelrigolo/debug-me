@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $username = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ticket::class)]
@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Level $level = null;
 
     public function __construct()
     {
@@ -246,6 +249,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?level $level): static
+    {
+        $this->level = $level;
 
         return $this;
     }

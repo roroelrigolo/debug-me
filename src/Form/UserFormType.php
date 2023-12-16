@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -64,6 +65,18 @@ class UserFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'constraints' => [
+                new UniqueEntity([
+                    'entityClass' => User::class,
+                    'fields' => 'username',
+                    'message' => 'Ce pseudo a déjà était utilisé. Veuillez en choisir un autre',
+                ]),
+                new UniqueEntity([
+                    'entityClass' => User::class,
+                    'fields' => 'email',
+                    'message' => 'Cet email a déjà était utilisé. Veuillez en choisir un autre',
+                ]),
+            ],
         ]);
     }
 }

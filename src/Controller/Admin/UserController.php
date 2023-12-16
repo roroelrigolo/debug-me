@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Level;
 use App\Entity\User;
 use App\Form\UserFormType;
+use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +39,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, LevelRepository $levelRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
@@ -45,6 +47,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setDateRegister(new \DateTimeImmutable());
+            $user->setPoints(0);
+            $user->setLevel($levelRepository->find(1));
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,

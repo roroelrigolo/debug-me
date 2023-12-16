@@ -7,14 +7,15 @@
   margin-left: 23%;
 }
 
-.admin-menu li a:hover path {
-  fill: #F71735;
-}
-
-.admin-menu .active a{
+.admin-menu {
+  li a:hover path {
+    fill: #F71735;
+  }
+  .active a{
     background: #FCFAF9;
     color: #F71735;
-  path{
-    fill: #F71735;
+    path{
+      fill: #F71735;
+    }
   }
 }

@@ -20,7 +20,7 @@ class TicketController extends AbstractController
     #[Route('/', name: 'app_admin_ticket')]
     public function index(TicketRepository $ticketRepository): Response
     {
-        $tickets = $ticketRepository->findBy([],['id'=>'DESC']);
+        $tickets = $ticketRepository->findBy([],['updated_at'=>'DESC']);
         $datas = [];
 
         for ($i=0;$i<count($tickets);$i++){
