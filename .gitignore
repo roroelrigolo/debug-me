@@ -3,7 +3,8 @@
 /migrations
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/
+/public/build/
+/public/bundles/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
