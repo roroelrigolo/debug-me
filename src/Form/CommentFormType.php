@@ -15,7 +15,7 @@ class CommentFormType extends AbstractType
         $builder
             ->add('content', null, array(
                 'label' => "Contenu",
-                'attr' => ['rows' => 20],
+                'attr' => ['rows' => 15],
             ))
         ;
     }

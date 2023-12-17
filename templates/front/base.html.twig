@@ -10,6 +10,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('notification') }}
         {% endblock %}
     </head>
     {% if app.request.attributes.get('_route') != "app_login" and app.request.attributes.get('_route') != "app_register"  %}
@@ -18,4 +19,17 @@
     <body class="pb-4">
         {% block body %}{% endblock %}
     </body>
+
+    {% set notifications = app.flashes('notification') %}
+    {% if notifications is not empty %}
+        <div class="fixed bottom-4 grid gap-4 right-4">
+            {% for i in 1..notifications[0]|length %}
+                {% include 'assets/notification/notification.html.twig' with {
+                    'number': i,
+                    'message': notifications[0][i-1]
+                } %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
 </html>

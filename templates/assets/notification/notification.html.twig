@@ -1,0 +1,7 @@
+<div id="notification-{{ number }}" class="bg-primary text-white w-fit rounded p-5 slide-left notification">
+    <div class="flex justify-between font-bungee text-lg mb-1">
+        <p>Nouvelle notification</p>
+        <button value="{{ number }}" class="hideNotificationButton">x</button>
+    </div>
+    <p>{{ message|raw }}</p>
+</div>

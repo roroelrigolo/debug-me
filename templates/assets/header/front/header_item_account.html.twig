@@ -1,6 +1,15 @@
-<div class="mr-6 bg-primary hover:bg-secondary rounded-2xl p-4">
-    <a class="flex font-bungee text-white" href="{{ path(route, {'username':username}) }}">
-        {{ svg|raw }}
-        {{ text }}
-    </a>
-</div>
+{% if app.user %}
+    <div class="mr-6 bg-primary hover:bg-secondary rounded-2xl px-4 py-2">
+        <a class="flex font-bungee text-white" href="{{ path(route, {'username':username}) }}">
+            {{ svg|raw }}
+            {{ text }}
+        </a>
+    </div>
+{% else %}
+    <div class="border rounded-2xl px-4 py-2 hover:text-white hover:bg-primary {% if controllerName == controller%}active{% endif %}">
+        <a class="flex font-bungee justify-center items-center" href="{{ path(route) }}">
+            {{ svg|raw }}
+            {{ text }}
+        </a>
+    </div>
+{% endif %}

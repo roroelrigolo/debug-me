@@ -15,6 +15,7 @@ class Point
     //This function adds an extra point to the user and changes its level if necessary
     public function addPoint(User $user): string
     {
+        $notification = false;
         $userRepository = $this->userRepository;
         $levelRepository = $this->levelRepository;
         $user->setPoints($user->getPoints()+1);
@@ -23,9 +24,11 @@ class Point
         if($pts > $user->getLevel()->getStage()){
             $nextLevel = $levelRepository->findOneBy(['step'=>$user->getLevel()->getStep()+1]);
             $user->setLevel($nextLevel);
+            //Set notification
+            $notification = true;
         }
 
         $userRepository->add($user);
-        return true;
+        return $notification;
     }
 }
