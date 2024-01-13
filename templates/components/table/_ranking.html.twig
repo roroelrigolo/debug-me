@@ -1,0 +1,39 @@
+{% set titles = ['Rang','Debuger','Points'] %}
+
+<table class="table-auto mt-4 pb-4 w-full">
+    <thead class="bg-primary text-white border border-primary rounded-tl-xl">
+    <tr>
+        {% for title in titles %}
+            <th class="text-start p-4">{{ title }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% set lastpoint = null %}
+    {% set rank = 1 %}
+    {% set diplayRank = true %}
+    {% for user in users %}
+        {% if lastpoint is not null and lastpoint != user.points %}
+            {% set rank = rank+1 %}
+            {% set diplayRank = true %}
+        {% endif %}
+        <tr class="border border-primary hover:bg-gray-200">
+            <td class="p-4">
+                <p>{% if diplayRank == true %}{{ rank }}{% endif %}</p>
+            </td>
+            <td class="p-4">
+                <p>{{ user.username }}
+                    {% if rank == 1 and diplayRank == true %}🥇{% endif %}
+                    {% if rank == 2 and diplayRank == true %}🥈{% endif %}
+                    {% if rank == 3 and diplayRank == true %}🥉{% endif %}
+                </p>
+            </td>
+            <td class="p-4">
+                <p>{{ user.points }}</p>
+            </td>
+        </tr>
+        {% set diplayRank = false %}
+        {% set lastpoint = user.points %}
+    {% endfor %}
+    </tbody>
+</table>

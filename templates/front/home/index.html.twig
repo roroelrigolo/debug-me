@@ -3,12 +3,39 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container w-7/12 mx-auto">
+    <div class="text-center mt-40 mb-10">
+        <h1 class="font-bungee text-5xl	mb-4">Débugguez et aidez à débugguer</h1>
+        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+    </div>
+
+    <div class="mb-20">
+        <input type="text" class="border border-graylight rounded-2xl p-3 w-full" placeholder="Votre recherche">
+        {% for tag in tags %}
+            <label>{{ tag.name }}</label>
+             <input type="checkbox">
+        {% endfor %}
+    </div>
+
+    {% set stats = [
+        ['#1 🥇','Numéro 1 du debugging'],
+        ['+500','Tickets'],
+        ['+100','Utilisateurs'],
+        ['10 m','Visites mensuelles']
+    ] %}
+    <div class="grid grid-cols-4 gap-6 mb-40">
+        {% for item in stats %}
+            <div class="border border-graylight rounded-2xl p-4">
+                <p class="font-bungee text-3xl">{{ item.0 }}</p>
+                <p class="text-xl text-graylight">{{ item.1 }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mb-20">
+        <h2 class="font-bungee text-5xl	mb-4">Ils utilisent debug.me</h2>
+        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+    </div>
 </div>
 {% endblock %}

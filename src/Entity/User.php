@@ -57,10 +57,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Level $level = null;
 
+    #[ORM\ManyToMany(targetEntity: Succes::class, inversedBy: 'users')]
+    private Collection $success;
+
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->success = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,6 +265,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLevel(?level $level): static
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Succes>
+     */
+    public function getSuccess(): Collection
+    {
+        return $this->success;
+    }
+
+    public function addSuccess(Succes $success): static
+    {
+        if (!$this->success->contains($success)) {
+            $this->success->add($success);
+        }
+
+        return $this;
+    }
+
+    public function removeSuccess(Succes $success): static
+    {
+        $this->success->removeElement($success);
 
         return $this;
     }

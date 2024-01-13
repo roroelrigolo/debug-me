@@ -49,3 +49,8 @@
     transform: translateX(0);
   }
 }
+
+.rank.active path,
+.rank:hover path {
+  fill: white;
+}
