@@ -9,25 +9,25 @@
             <h1 class="font-bungee text-3xl	mb-4">{{ ticket.title }}</h1>
             <div class="flex grid grid-cols-4 gap-10 mb-4">
                 <div class="flex items-center"><span class="font-bold mr-2">Auteur :</span><a href="{{ path('app_account_show', {username: ticket.author.username}) }}" class="text-graylight hover:text-primary">@{{ ticket.author.username }}</a></div>
-                <div class="flex items-center"><span class="font-bold mr-2">Statut :</span>{% include '/assets/chips/chips_primary.html.twig' with {'text': ticket.statut.name} %}</div>
+                <div class="flex items-center"><span class="font-bold mr-2">Statut :</span>{% include '/components/chips/_chips_primary.html.twig' with {'text': ticket.statut.name} %}</div>
                 <div class="flex items-center"><span class="font-bold mr-2">Date :</span><span class="text-graylight">{{ ticket.updatedAt|date('d M Y') }}</span></div>
                 <div class="flex items-center"><span class="font-bold mr-2">Tags :</span><span class="text-graylight">{% for tag in ticket.tags %}{{ tag.name }} {% endfor %}</span></div>
             </div>
 
             {% for message in app.flashes('success') %}
                 <div class="my-4">
-                    {% include 'assets/alert/success.html.twig' %}
+                    {% include 'components/alert/_success.html.twig' %}
                 </div>
             {% endfor %}
 
             <p class="font-bungee text-xl my-4 w-full">Question principale</p>
 
-            {% include 'assets/ticket/ticket_content.html.twig' with {'comment': ticket }  %}
+            {% include 'components/ticket/_ticket_content.html.twig' with {'comment': ticket }  %}
 
             <p class="font-bungee text-xl my-4 w-full"> {{ ticket.comments|length }} commentaires</p>
 
             {% for comment in ticket.comments|sort((a, b) => a.updatedAt <=> b.updatedAt) %}
-                {% include 'assets/comment/comment.html.twig' with {'comment': comment }  %}
+                {% include 'components/comment/_comment.html.twig' with {'comment': comment }  %}
             {% endfor %}
 
             <p class="font-bungee text-xl my-4 w-full">Ajouter un commentaire</p>

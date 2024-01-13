@@ -3,17 +3,17 @@
 {% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
-    {% include 'assets/text/title_index.html.twig' with {'text': 'Utilisateurs'} %}
+    {% include 'components/text/_title_index.html.twig' with {'text': 'Utilisateurs'} %}
     <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des utilisateurs.</p>
-    {% include 'assets/button/btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouvel utilisateur', 'route': 'app_admin_user_new'} %}
+    {% include 'components/button/_btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouvel utilisateur', 'route': 'app_admin_user_new'} %}
 
     {% for message in app.flashes('success') %}
         <div class="my-4">
-            {% include 'assets/alert/success.html.twig' %}
+            {% include 'components/alert/_success.html.twig' %}
         </div>
     {% endfor %}
 
-    {% include 'assets/table/table.html.twig' with {
+    {% include 'components/table/_table.html.twig' with {
         'titles': ['Pseudo','Email','Rôle'],
         'datas' : datas,
         'class' : ['','',''],

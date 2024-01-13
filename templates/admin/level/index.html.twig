@@ -3,17 +3,17 @@
 {% block title %}Levels{% endblock %}
 
 {% block body %}
-    {% include 'assets/text/title_index.html.twig' with {'text': 'Niveaux'} %}
+    {% include 'components/text/_title_index.html.twig' with {'text': 'Niveaux'} %}
     <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des niveaux.</p>
-    {% include 'assets/button/btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau niveau', 'route': 'app_admin_level_new'} %}
+    {% include 'components/button/_btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau niveau', 'route': 'app_admin_level_new'} %}
 
     {% for message in app.flashes('success') %}
         <div class="my-4">
-            {% include 'assets/alert/success.html.twig' %}
+            {% include 'components/alert/_success.html.twig' %}
         </div>
     {% endfor %}
 
-    {% include 'assets/table/table.html.twig' with {
+    {% include 'components/table/_table.html.twig' with {
         'titles': ['Nom','Niveau','Palier'],
         'datas' : datas,
         'class' : ['','',''],

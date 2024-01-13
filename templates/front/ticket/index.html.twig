@@ -7,17 +7,17 @@
         <div class="basis-1/4"></div>
         <div class="basis-1/2 flex flex-col items-center">
             <h1 class="font-bungee text-3xl	mb-4">Derniers tickets</h1>
-            {% include '/assets/button/btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
+            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
 
             {% for message in app.flashes('success') %}
                 <div class="my-4">
-                    {% include 'assets/alert/success.html.twig' %}
+                    {% include 'components/alert/_success.html.twig' %}
                 </div>
             {% endfor %}
 
             <div class="w-full grid grid-cols-2 gap-4">
                 {% for ticket in tickets %}
-                    {% include '/assets/ticket/ticket_single.html.twig' with {'ticket': ticket} %}
+                    {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
                 {% endfor %}
             </div>
         </div>

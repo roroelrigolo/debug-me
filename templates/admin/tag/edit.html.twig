@@ -3,6 +3,6 @@
 {% block title %}Tags{% endblock %}
 
 {% block body %}
-    {% include 'assets/text/title_index.html.twig' with {'text': "Modification d'un tag"} %}
+    {% include 'components/text/_title_index.html.twig' with {'text': "Modification d'un tag"} %}
     {% include 'admin/tag/_form.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
 {% endblock %}

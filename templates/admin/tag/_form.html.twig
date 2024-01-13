@@ -4,7 +4,7 @@
         'label_attr': {'class': 'font-bold mb-2'},
         'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
 <div class="flex">
-    {% include 'assets/button/btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
+    {% include 'components/button/_btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
     {{ form_end(form) }}
     {% if app.request.attributes.get('_route') == "app_admin_tag_edit"  %}
         {% include 'admin/tag/_delete_form.html.twig' %}

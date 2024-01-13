@@ -3,6 +3,6 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-    {% include 'assets/text/title_index.html.twig' with {'text': "Modification d'un commentaire"} %}
+    {% include 'components/text/_title_index.html.twig' with {'text': "Modification d'un commentaire"} %}
     {% include 'admin/ticket/comment/_form.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
 {% endblock %}

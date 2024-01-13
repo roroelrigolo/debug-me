@@ -3,18 +3,18 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-    {% include 'assets/text/title_index.html.twig' with {'text': 'Tickets'} %}
+    {% include 'components/text/_title_index.html.twig' with {'text': 'Tickets'} %}
     <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des tickets.</p>
-    {% include 'assets/button/btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau ticket', 'route': 'app_admin_ticket_new'} %}
+    {% include 'components/button/_btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau ticket', 'route': 'app_admin_ticket_new'} %}
 
     {% for message in app.flashes('success') %}
         <div class="my-4">
-            {% include 'assets/alert/success.html.twig' %}
+            {% include 'components/alert/_success.html.twig' %}
         </div>
     {% endfor %}
 
     <div class="flex">
-        {% include 'assets/table/table.html.twig' with {
+        {% include 'components/table/_table.html.twig' with {
             'titles': ['Titre','Auteur','Tags','Date de création'],
             'datas' : datas,
             'class' : ['','','',''],
@@ -32,7 +32,7 @@
                 {% for ticket in datas %}
                     <tr class="border border-black">
                         <td class="p-4">
-                            {% include 'assets/button/btn_red.html.twig' with
+                            {% include 'components/button/_btn_red.html.twig' with
                                 {
                                     'tag': 'a',
                                     'text': 'Voir les commentaires',

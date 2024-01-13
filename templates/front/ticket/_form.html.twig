@@ -7,7 +7,7 @@
     {{ form_row(form.tags,{ 'attr': {
     'class' : ''}}) }}
 <div class="flex">
-    {% include 'assets/button/btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
+    {% include 'components/button/_btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
 </div>
 {{ form_end(form) }}
 
