@@ -16,7 +16,7 @@
     {% if app.request.attributes.get('_route') != "app_login" and app.request.attributes.get('_route') != "app_register"  %}
         {{ include('components/header/front/header.html.twig') }}
     {% endif %}
-    <body class="pb-4">
+    <body>
         {% block body %}{% endblock %}
     </body>
 
