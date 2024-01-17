@@ -3,19 +3,19 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-    <div class="grid grid-cols-2 h-screen">
-        <div class="bg-primary flex flex-col justify-center p-16 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 h-screen">
+        <div class="bg-primary hidden lg:flex flex-col justify-center p-16 gap-4">
             <img width="200" src="/img/logo_fond_blanc.png">
             <p class="font-bungee text-white text-4xl">Bienvenue sur debug.me</p>
             <p class="text-white">Debugguer son code, c’est mener une enquête dans laquelle vous êtes aussi le meurtrier. 🕵🏻‍♂</p>
         </div>
         <div class="flex flex-col justify-center p-16 gap-4">
-            <h1 class="font-bungee text-4xl">Connectez-vous</h1>
+            <h1 class="font-bungee text-3xl lg:text-4xl">Connectez-vous</h1>
             {% if error %}
                 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-            <form class="flex flex-col justify-center gap-4 lg:w-1/2" action="{{ path('app_login') }}" method="post">
-                {% include 'components/input/_input.html.twig' with { 'id': 'email', 'name': 'email', 'title': 'Email', 'type': 'text', 'value': last_username } %}
+            <form class="flex flex-col justify-center gap-4 lg:w-3/4" action="{{ path('app_login') }}" method="post">
+                {% include 'components/input/_input.html.twig' with { 'id': 'username', 'name': '_username', 'title': 'Email', 'type': 'text', 'value': last_username } %}
                 {% include 'components/input/_input.html.twig' with { 'id': 'password', 'name': '_password', 'type': 'password', 'title': 'Mot de passe', 'value': '' } %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <p>Pas encore de compte ?<a class="text-primary font-bold underline ml-1" href="/register">Inscrivez-vous</a></p>
