@@ -10,13 +10,7 @@
         <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
     </div>
 
-    <div class="mb-20">
-        <input type="text" class="border border-graylight rounded-2xl p-3 w-full" placeholder="Votre recherche">
-        {% for tag in tags %}
-            <label>{{ tag.name }}</label>
-             <input type="checkbox">
-        {% endfor %}
-    </div>
+    {% include '/front/search/_form.html.twig' %}
 
     {% set stats = [
         ['#1 🥇','Numéro 1 du debugging'],

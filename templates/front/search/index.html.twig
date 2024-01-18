@@ -3,6 +3,12 @@
 {% block title %}Recherche{% endblock %}
 
 {% block body %}
+<div class="container w-7/12 mx-auto">
     {% include '/front/search/_form.html.twig' %}
-
+    <div class="w-full grid grid-cols-2 gap-4">
+        {% for ticket in tickets %}
+            {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
