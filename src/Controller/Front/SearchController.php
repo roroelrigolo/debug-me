@@ -17,8 +17,9 @@ class SearchController extends AbstractController
     {
         $tickets = $ticketRepository->findAll();
 
-
         $defaultData = null;
+        $nameSearch = "";
+        $tagSearch = "";
         if($request->query->get('nameSearch') or $request->query->get('tagSearch')){
             // Récupérer les données du formulaire de la home page
             $nameSearch = $request->query->get('nameSearch');

@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Succes::class, inversedBy: 'users')]
     private Collection $success;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
@@ -289,6 +292,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSuccess(Succes $success): static
     {
         $this->success->removeElement($success);
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }

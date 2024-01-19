@@ -1,6 +1,6 @@
 {% extends '/front/base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Mon compte{% endblock %}
 
 {% block body %}
     <div class="flex justify-center">
@@ -9,6 +9,7 @@
             <p>{{ user.name }} {{ user.firstname }}</p>
             <p>{{ user.username }}</p>
             <p>{{ user.email }}</p>
+            <p>Membre depuis le {{ user.dateRegister|date('d/m/Y') }}</p>
             <p>Points : {{ user.points }}</p>
         </div>
         <div class="basis-1/6"></div>
