@@ -6,9 +6,14 @@
       fill: #FCFAF9;
     }
   }
-  li:hover path,
-  div:hover path{
-    fill: #FCFAF9;
+}
+
+@media screen and (min-width:1280px) {
+  .front-menu{
+    li:hover path,
+    div:hover path{
+      fill: #FCFAF9;
+    }
   }
 }
 
