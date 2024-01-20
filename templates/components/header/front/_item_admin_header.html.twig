@@ -1,6 +1,8 @@
-<div class="mr-6 bg-tertiary hover:bg-quartiary rounded-2xl px-4 py-2">
+<div class="bg-tertiary hover:bg-quartiary flex justify-center items-center rounded-lg px-4 py-2">
     <a class="flex font-bungee text-white" href="{{ path(route) }}">
-        {{ svg|raw }}
+        <div class="width-[24px] height-[24px]">
+            {{ svg|raw }}
+        </div>
         {{ text }}
     </a>
 </div>
