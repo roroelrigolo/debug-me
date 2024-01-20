@@ -29,6 +29,11 @@
   animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+input[type=radio]:checked+label {
+  background-color: #6817FF;
+  color: #FCFAF9;
+}
+
 /**
  * ----------------------------------------
  * animation slide-left
