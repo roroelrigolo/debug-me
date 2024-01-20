@@ -20,6 +20,10 @@
     {% endif %}
     <body>
         {% block body %}{% endblock %}
+
+        {% if app.request.attributes.get('_route') != "app_login" and app.request.attributes.get('_route') != "app_register"  %}
+            {{ include('components/footer/footer.html.twig') }}
+        {% endif %}
     </body>
 
     {% set notifications = app.flashes('notification') %}
