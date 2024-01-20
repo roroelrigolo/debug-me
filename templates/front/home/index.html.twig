@@ -2,40 +2,112 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block body %}
-
-<div class="container w-7/12 mx-auto">
-    <div class="text-center mt-40 mb-10">
-        <h1 class="font-bungee text-5xl	mb-4">Débugguez et aidez à débugguer</h1>
-        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
-    </div>
-
-    <div class="mb-20">
-        <input type="text" class="border border-graylight rounded-2xl p-3 w-full" placeholder="Votre recherche">
-        {% for tag in tags %}
-            <label>{{ tag.name }}</label>
-             <input type="checkbox">
-        {% endfor %}
-    </div>
-
-    {% set stats = [
+{% set 
+    stats = [
         ['#1 🥇','Numéro 1 du debugging'],
         ['+500','Tickets'],
         ['+100','Utilisateurs'],
         ['10 m','Visites mensuelles']
-    ] %}
-    <div class="grid grid-cols-4 gap-6 mb-40">
-        {% for item in stats %}
-            <div class="border border-graylight rounded-2xl p-4">
-                <p class="font-bungee text-3xl">{{ item.0 }}</p>
-                <p class="text-xl text-graylight">{{ item.1 }}</p>
+    ]
+%}
+
+{% set 
+    logos = [
+        ['microsoft', 'Logo Microsoft'],
+        ['apple', 'Logo Apple'],
+        ['bcorp', 'Logo Borp'],
+        ['plugo', 'Logo Plugo'],
+        ['laconsole', 'Logo LaConsole'],
+        ['amiltone', 'Logo Amiltone'],
+    ]
+%}
+
+{% block body %}
+
+<div class="px-16 lg:px-64 py-16 flex justify-center">
+    <div class="flex flex-col items-center gap-32 md:gap-64 mt-16 md:mt-48 max-w-[1024px]">    
+        
+        {# Viewport #}
+
+        <div class="flex flex-col gap-32">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-8 text-center">
+                    <h1 class="font-bungee text-5xl">Débugguez et aidez à débugguer</h1>
+                    <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+                </div>
+                <div class="flex flex-col gap-8 items-center">
+                    <label for="searchBarId" class="flex px-6 py-4 gap-6 border border-graylight rounded-2xl w-full">
+                        <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.8482 15.6543C16.2348 15.2704 16.8544 15.2704 17.2409 15.6543L19.7956 17.7164H19.8399C20.3567 18.2388 20.3567 19.0858 19.8399 19.6082C19.3231 20.1306 18.4851 20.1306 17.9683 19.6082L15.8482 17.1785L15.7678 17.0877C15.6179 16.898 15.5352 16.6615 15.5352 16.4164C15.5352 16.1304 15.6478 15.8562 15.8482 15.6543ZM8.80518 0C11.0801 0 13.2619 0.913436 14.8705 2.53936C16.4791 4.16529 17.3828 6.37052 17.3828 8.66993C17.3828 13.4582 13.5425 17.3399 8.80518 17.3399C4.06788 17.3399 0.227539 13.4582 0.227539 8.66993C0.227539 3.88166 4.06788 0 8.80518 0Z" fill="#6817FF"/></svg>
+                        <input type="text" id="searchBarId" class="placeholder:font-bold w-full outline-0" placeholder="Votre recherche">
+                    </label>
+                    <ul class="flex flex-wrap justify-center gap-4 md:gap-8">
+                        {% for tag in tags %}
+                            <li>
+                                <input class="hidden" type="radio" name="searchTag" id={{ tag.id }}>
+                                <label for={{ tag.id }} class="searchFilter font-bungee flex border rounded-lg px-4 py-3">{{ tag.name }}</label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        {% endfor %}
+            <div class="flex flex-col md:flex-row md:items-start gap-4">
+                {% for item in stats %}
+                    <div class="flex flex-col justify-start gap-2 flex-1 border border-graylight rounded-2xl p-6">
+                        <p class="font-bungee text-2xl md:text-3xl">{{ item.0 }}</p>
+                        <p class="text-lg md:text-xl text-graylight">{{ item.1 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {# Logos #}
+
+        <div class="flex flex-col gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Ils utilisent debug.me</h2>
+                <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+            </div>
+            <ul class="flex flex-wrap justify-center gap-16">
+                {% for logo in logos %}
+                    <li>
+                        <img src="img/logo_{{logo[0]}}.svg" alt={{logo[1]}} />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {# Classement #}
+
+        <div class="flex flex-col items-center gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Classement</h2>
+                <p class="text-graylight text-2xl">Gagnez des points en interagissant sur le site web et montez dans le classement</p>
+            </div>
+            
+            {% include 'components/table/_ranking.html.twig' with { 'users' : users } %}
+
+            {% include 'components/button/_btn_primary.html.twig' with {'tag': 'a', 'route': 'app_ranking_points', 'text': "voir le classement en entier"} %}
+
+        </div>
+
+        {# Tickets #}
+
+        <div class="flex flex-col items-center gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Les derniers tickets</h2>
+                <p class="text-graylight text-2xl">Consultez les derniers tickets créés par la communauté !</p>
+            </div>
+            
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
+                {% for ticket in tickets %}
+                    {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
+                {% endfor %}
+            </div>
+
+            {% include 'components/button/_btn_primary.html.twig' with {'tag': 'a', 'route': 'app_ticket', 'text': "Voir les derniers tickets"} %}
+
+        </div>
     </div>
 
-    <div class="text-center mb-20">
-        <h2 class="font-bungee text-5xl	mb-4">Ils utilisent debug.me</h2>
-        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
-    </div>
 </div>
 {% endblock %}
