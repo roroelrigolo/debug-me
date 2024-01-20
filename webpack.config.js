@@ -28,6 +28,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('notification', './assets/js/notification.js')
+    .addEntry('menu', './assets/js/menu.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

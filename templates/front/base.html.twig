@@ -12,6 +12,7 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             {{ encore_entry_script_tags('notification') }}
+            {{ encore_entry_script_tags('menu') }}
         {% endblock %}
     </head>
     {% if app.request.attributes.get('_route') != "app_login" and app.request.attributes.get('_route') != "app_register"  %}
