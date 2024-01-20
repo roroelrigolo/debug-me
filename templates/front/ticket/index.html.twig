@@ -3,24 +3,29 @@
 {% block title %}Ticket{% endblock %}
 
 {% block body %}
-    <div class="flex justify-center">
-        <div class="basis-1/4"></div>
-        <div class="basis-1/2 flex flex-col items-center">
-            <h1 class="font-bungee text-3xl	mb-4">Derniers tickets</h1>
-            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
 
-            {% for message in app.flashes('success') %}
-                <div class="my-4">
-                    {% include 'components/alert/_success.html.twig' %}
+<div class="px-16 lg:px-64 py-16 flex justify-center">
+    <div class="flex flex-col items-center gap-32 md:gap-64 max-w-[1024px]">    
+        <div class="flex flex-col gap-32">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-8 text-center">
+                    <h1 class="font-bungee text-5xl">Derniers tickets</h1>
+                    <div class="flex justify-center items-center">
+                        {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
+                    </div>
+                    {% for message in app.flashes('success') %}
+                        <div class="my-4">
+                            {% include 'components/alert/_success.html.twig' %}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-
-            <div class="w-full grid grid-cols-2 gap-4">
-                {% for ticket in tickets %}
-                    {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
-                {% endfor %}
+                <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
+                    {% for ticket in tickets %}
+                        {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="basis-1/4"></div>
     </div>
+</div>
 {% endblock %}
