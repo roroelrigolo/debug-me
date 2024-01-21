@@ -15,7 +15,7 @@
                         {% if value is iterable %}
                             <p class="{{ class[loop.index-1] }}">
                                 {% for datavalue in value %}
-                                    {{ loop.index == 2 ? " & " : "" }} {{ datavalue|slice(5,5) }}
+                                    {{ datavalue }}
                                 {% endfor %}
                             </p>
                         {% else %}
@@ -24,6 +24,21 @@
                     </a>
                 </td>
             {% endfor %}
+            {% if hasComments is defined %}
+                <td class="p-4">
+                    <a href="{% if route_comment %}{{ path(route_comment, {'id':data.id}) }}{% endif %}">
+                        {% include 'components/button/_btn_red.html.twig' with
+                            {
+                                'tag': 'a',
+                                'text': 'Voir les commentaires',
+                                'route': 'app_admin_ticket_comment',
+                                'route_parameter': {0:{'name':'id','value':data.id}},
+                                'tiny': true,
+                            }
+                        %}
+                    </a>
+                </td>
+            {% endif %}
         </tr>
     {% endfor %}
     </tbody>
