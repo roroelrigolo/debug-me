@@ -4,13 +4,11 @@
 
 {% block body %}
     {% include 'components/text/_title_index.html.twig' with {'text': 'Niveaux'} %}
-    <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des niveaux.</p>
+    <p>C'est ici que vous pouvez ajouter, modifier ou supprimer des niveaux.</p>
     {% include 'components/button/_btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau niveau', 'route': 'app_admin_level_new'} %}
 
     {% for message in app.flashes('success') %}
-        <div class="my-4">
-            {% include 'components/alert/_success.html.twig' %}
-        </div>
+        {% include 'components/alert/_success.html.twig' %}
     {% endfor %}
 
     {% include 'components/table/_table.html.twig' with {
