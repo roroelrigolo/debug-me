@@ -81,7 +81,7 @@
                 )
         }}
     {% endif %}
-<div class="flex">
+<div class="flex flex-col items-start gap-4">
     {% include 'components/button/_btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
     {{ form_end(form) }}
     {% if app.request.attributes.get('_route') == "app_admin_user_edit"  %}
