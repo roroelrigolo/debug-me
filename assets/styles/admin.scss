@@ -1,21 +1,5 @@
-.nav-admin {
-  width: 23%;
-}
-
-.content-admin {
-  width: 77%;
-  margin-left: 23%;
-}
-
 .admin-menu {
-  li a:hover path {
+  li a:hover path, .active path {
     fill: #F71735;
-  }
-  .active a{
-    background: #FCFAF9;
-    color: #F71735;
-    path{
-      fill: #F71735;
-    }
   }
 }
