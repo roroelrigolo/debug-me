@@ -1,27 +1,85 @@
+{% set rowClasses = 'flex flex-col items-start gap-4 w-full' %}
+{% set inputClasses = 'border rounded-lg px-3 py-2 w-full' %}
+
 {{ form_start(form, {
-    'attr': {'class': 'lg:w-1/2'}}) }}
-    {{ form_row(form.name, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.firstname, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.username, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.email, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.roles, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'p-2 mb-4 w-full'}}) }}
+    'attr': {'class': 'flex flex-col gap-4 items-start w-[512px]'}}) }}
+    {{ 
+        form_row(
+            form.name,
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
+    {{
+        form_row(
+            form.firstname, 
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+    }}
+    {{
+        form_row(
+            form.username,            
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+    }}
+    {{ 
+        form_row(
+            form.email, 
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+    }}
+    <div class="{{ rowClasses }}">
+        <label class="font-bold">Rôles</label>
+        {% for label, value in field_choices(form.roles) %}
+            <label>
+                <input
+                    class="hidden peer"
+                    type="checkbox"
+                    name="{{field_name(form.roles)}}"
+                    value="{{value}}"
+                />
+                <span class="flex items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-tertiary before:peer-checked:border-[6px]">
+                    {{ label }}
+                </span>
+            </label>
+        {% endfor %}
+    </div>
     {% if app.request.attributes.get('_route') == "app_admin_user_new"  %}
-        {{ form_row(form.plainPassword.first, {
-            'label_attr': {'class': 'font-bold mb-2'},
-            'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-        {{ form_row(form.plainPassword.second, {
-            'label_attr': {'class': 'font-bold mb-2'},
-            'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
+        {{ 
+            form_row(
+                form.plainPassword.first,
+                {
+                    'label_attr': {'class': 'font-bold'},
+                    'attr': {'class': inputClasses},
+                    'row_attr': {'class': rowClasses}
+                }
+            )
+        }}
+        {{ 
+            form_row(
+                form.plainPassword.second, 
+                    {
+                        'label_attr': {'class': 'font-bold'},
+                        'attr': {'class': inputClasses},
+                        'row_attr': {'class': rowClasses}
+                    }
+                )
+        }}
     {% endif %}
 <div class="flex">
     {% include 'components/button/_btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
