@@ -19,6 +19,9 @@ module.exports = {
         greenborder:"rgba(23,247,113,0.3)",
         greenlight:"#E5FAEC",
         graylight: "#C9C9C9"
+      },
+      gridTemplateColumns: {
+        'admin-layout': " 394px 1fr"
       }
     },
   },
