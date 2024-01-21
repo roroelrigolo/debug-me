@@ -5,11 +5,10 @@
         ['UserController', 'app_admin_user', 'user', 'Utilisateurs'],
         ['TicketController', 'app_admin_ticket', 'ticket', 'Tickets'],
         ['TagController', 'app_admin_tag', 'tag', 'Tags'],
-        ['SuccesController', 'app_admin_succes', 'success', 'Succès'],
         ['LevelController', 'app_admin_level', 'level', 'Niveaux'],
     ]
 %}
-<nav class="bg-tertiary p-16 flex flex-col justify-between h-screen">
+<nav class="bg-tertiary p-16 flex flex-col justify-between h-screen sticky top-0">
     <div class="flex flex-col gap-32">    
         <a href="{{ path('app_home') }}">
             <img width="200" src="/img/logo_admin.png">
