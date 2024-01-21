@@ -4,47 +4,23 @@
 
 {% block body %}
     {% include 'components/text/_title_index.html.twig' with {'text': 'Tickets'} %}
-    <p class="mb-2">C’est ici que vous pouvez ajouter, modifier ou supprimer des tickets.</p>
+    <p>C'est ici que vous pouvez ajouter, modifier ou supprimer des tickets.</p>
     {% include 'components/button/_btn_red.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau ticket', 'route': 'app_admin_ticket_new'} %}
 
     {% for message in app.flashes('success') %}
-        <div class="my-4">
-            {% include 'components/alert/_success.html.twig' %}
-        </div>
+        {% include 'components/alert/_success.html.twig' %}
     {% endfor %}
 
     <div class="flex">
         {% include 'components/table/_table.html.twig' with {
-            'titles': ['Titre','Auteur','Tags','Date de création'],
+            'titles': ['Titre','Auteur','Tags','Date de création','Commentaires'],
             'datas' : datas,
-            'class' : ['','','',''],
-            'route_edit' : 'app_admin_ticket_edit'
+            'class' : ['','','','',''],
+            'route_edit' : 'app_admin_ticket_edit',
+            'hasComments': true,
+            'route_comment': 'app_admin_ticket_comment',
         }
         %}
-
-        <table class="table-auto mt-4 pb-4">
-            <thead class="bg-black text-white border border-black rounded-tl-xl">
-            <tr>
-                <th class="text-start p-4">Commentaires</th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for ticket in datas %}
-                    <tr class="border border-black">
-                        <td class="p-4">
-                            {% include 'components/button/_btn_red.html.twig' with
-                                {
-                                    'tag': 'a',
-                                    'text': 'Voir les commentaires',
-                                    'route': 'app_admin_ticket_comment',
-                                    'route_parameter': {0:{'name':'id','value':ticket.id}}
-                                }
-                            %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 
 {% endblock %}
