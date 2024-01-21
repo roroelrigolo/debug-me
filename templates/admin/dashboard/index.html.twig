@@ -2,8 +2,24 @@
 
 {% block title %}Admin{% endblock %}
 
+{% set 
+    navigationLinks = [
+        ['row-start-1 row-end-3 col-start-1 col-end-2', 'app_admin_user', 'user', 'Utilisateurs'],
+        ['col-start-2 col-end-3', 'app_admin_ticket', 'ticket', 'Tickets'],
+        ['col-start-2 col-end-3', 'app_admin_tag', 'tag', 'Tags'],
+        ['row-start-1 row-end-3 col-start-3 col-end-4', 'app_admin_level', 'level', 'Niveaux'],
+    ]
+%}
+
 {% block body %}
-    <div>
-        <p>Bienvenue sur la partie admin</p>
-    </div>
+        {% include 'components/text/_title_index.html.twig' with {'text': 'Bonjour, Romaing !'} %}
+        <p>C'est ici que vous pouvez administrer <strong>debug.me</strong>.</p>
+        <div class="grid grid-cols-3 grid-rows-2 gap-4 w-[950px] h-[375px]">
+            {% for item in navigationLinks %}
+                <a class="p-4 bg-tertiary hover:bg-white text-white hover:text-tertiary flex justify-start items-end border-4 border-tertiary rounded-lg {{ item[0]}}" href="{{ path('' ~ item[1] ~ '') }}">
+                    <p class="font-bungee text-2xl">{{ item[3] }}</p>
+                </a>
+            {% endfor %}
+
+        </div>
 {% endblock %}
