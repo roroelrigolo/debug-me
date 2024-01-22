@@ -8,10 +8,13 @@ use App\Form\UserFormType;
 use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin/user')]
 class UserController extends AbstractController
@@ -29,6 +32,7 @@ class UserController extends AbstractController
                 $users[$i]->getUsername(),
                 $users[$i]->getEmail(),
                 $users[$i]->getRoles(),
+                $users[$i]->getPicture(),
             ];
             array_push($datas[$i]['data'],$array);
         }
@@ -39,7 +43,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, LevelRepository $levelRepository): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, LevelRepository $levelRepository, SluggerInterface $slugger): Response
     {
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
@@ -55,6 +59,20 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $picture->guessExtension();
+                try {
+                    $picture->move(
+                        $this->getParameter('profile_pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {}
+                $user->setPicture($newFilename);
+            }
+
             $this->addFlash('success', 'Utilisateur ajouté avec succès');
             $userRepository->add($user);
 
@@ -68,13 +86,26 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, User $user): Response
+    public function edit(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, User $user, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(UserFormType::class, $user);
         $form->remove('plainPassword');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $picture->guessExtension();
+                try {
+                    $picture->move(
+                        $this->getParameter('profile_pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {}
+                $user->setPicture($newFilename);
+            }
             $userRepository->add($user);
             $this->addFlash('success', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('app_admin_user', [], Response::HTTP_SEE_OTHER);

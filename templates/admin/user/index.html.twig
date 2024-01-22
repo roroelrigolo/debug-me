@@ -12,9 +12,9 @@
     {% endfor %}
 
     {% include 'components/table/_table.html.twig' with {
-        'titles': ['Pseudo','Email','Rôle'],
+        'titles': ['Pseudo','Email','Rôle','Photo de profil'],
         'datas' : datas,
-        'class' : ['','',''],
+        'class' : ['','','',''],
         'route_edit' : 'app_admin_user_edit'
     }
     %}

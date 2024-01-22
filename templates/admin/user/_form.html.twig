@@ -59,6 +59,15 @@
             </label>
         {% endfor %}
     </div>
+    <div class="flex">
+        {% if user.picture is not null %}
+            <img width="50px" height="50px" src="/uploads/users/pictures/{{ user.picture }}"
+        {% endif %}
+        {{ form_row(form.picture, {
+            'label_attr': {'class': 'font-bold mb-2'},
+            'attr': {'class': 'p-2 mb-4 w-full'}}) }}
+        {% if app.request.attributes.get('_route') == "app_admin_user_new"  %}
+    </div>
     {% if app.request.attributes.get('_route') == "app_admin_user_new"  %}
         {{ 
             form_row(
