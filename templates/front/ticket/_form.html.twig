@@ -1,13 +1,53 @@
-{{ form_start(form) }}
-    {{ form_row(form.title,{ 'attr': {
-    'class' : 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.content,{ 'attr': {
-        'class' : 'border rounded p-2 w-full'}}) }}
+{% set rowClasses = 'flex flex-col items-start gap-4 w-full' %}
+
+{{ 
+    form_start(
+        form,
+        {
+            'attr': {'class': 'flex flex-col gap-4 w-full'},
+        }
+    )
+}}
+    {{ 
+        form_row(
+            form.title,
+            { 
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class' : 'border rounded p-2 w-full'},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
+    {{ 
+        form_row(
+            form.content,
+            { 
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class' : 'border rounded p-2 w-full'},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
 <p class="mb-4"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
-    {{ form_row(form.tags,{ 'attr': {
-    'class' : ''}}) }}
-<div class="flex">
+<div class='{{ rowClasses }}'>
+    <label class="font-bold">Tags</label>
+    <div class="flex flex-wrap gap-4">
+        {% for label, value in field_choices(form.tags) %}
+            <label>
+                <input
+                    class="hidden peer"
+                    type="checkbox"
+                    name="{{field_name(form.tags)}}"
+                    value="{{value}}"
+                />
+                <span class="flex items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-primary before:peer-checked:border-[6px]">
+                    {{ label }}
+                </span>
+            </label>
+        {% endfor %}
+    </div>
+</div>
+<div class="mt-4">
     {% include 'components/button/_btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
 </div>
 {{ form_end(form) }}
-
