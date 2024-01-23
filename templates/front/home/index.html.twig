@@ -15,7 +15,7 @@
     logos = [
         ['microsoft', 'Logo Microsoft'],
         ['apple', 'Logo Apple'],
-        ['bcorp', 'Logo Borp'],
+        ['bcorp', 'Logo Bcorp'],
         ['plugo', 'Logo Plugo'],
         ['laconsole', 'Logo LaConsole'],
         ['amiltone', 'Logo Amiltone'],
@@ -33,25 +33,9 @@
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-8 text-center">
                     <h1 class="font-bungee text-5xl">Débugguez et aidez à débugguer</h1>
-                    <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+                    <p class="text-graylight text-2xl">Recherchez un ticket similaire à votre problème</p>
                 </div>
-
                 {% include '/front/search/_form.html.twig' %}
-
-                <div class="flex flex-col gap-8 items-center">
-                    <label for="searchBarId" class="flex px-6 py-4 gap-6 border border-graylight rounded-2xl w-full">
-                        <svg class="mr-2" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.8482 15.6543C16.2348 15.2704 16.8544 15.2704 17.2409 15.6543L19.7956 17.7164H19.8399C20.3567 18.2388 20.3567 19.0858 19.8399 19.6082C19.3231 20.1306 18.4851 20.1306 17.9683 19.6082L15.8482 17.1785L15.7678 17.0877C15.6179 16.898 15.5352 16.6615 15.5352 16.4164C15.5352 16.1304 15.6478 15.8562 15.8482 15.6543ZM8.80518 0C11.0801 0 13.2619 0.913436 14.8705 2.53936C16.4791 4.16529 17.3828 6.37052 17.3828 8.66993C17.3828 13.4582 13.5425 17.3399 8.80518 17.3399C4.06788 17.3399 0.227539 13.4582 0.227539 8.66993C0.227539 3.88166 4.06788 0 8.80518 0Z" fill="#6817FF"/></svg>
-                        <input type="text" id="searchBarId" class="placeholder:font-bold w-full outline-0" placeholder="Votre recherche">
-                    </label>
-                    <ul class="flex flex-wrap justify-center gap-4 md:gap-8">
-                        {% for tag in tags %}
-                            <li>
-                                <input class="hidden" type="radio" name="searchTag" id={{ tag.id }}>
-                                <label for={{ tag.id }} class="searchFilter font-bungee flex border rounded-lg px-4 py-3">{{ tag.name }}</label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
             </div>
             <div class="flex flex-col md:flex-row md:items-start gap-4">
                 {% for item in stats %}
