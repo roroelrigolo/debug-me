@@ -1,8 +1,8 @@
-<div class="border bg-primarylight rounded-xl p-4 mb-4 w-full">
+<div class="border bg-primarylight text-primary border border-primary rounded-xl p-4 mb-4 w-full">
     <div class="flex justify-between mb-4">
         <div class="flex items-center">
-            <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':ticket.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
-            <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
+            <p class="hover:underline"><a href="{{ path('app_account_show', {'username':ticket.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
+            <p class="px-2 opacity-50">{{ comment.updatedAt|ago(locale='fr')}}</p>
         </div>
     </div>
     {% set content = comment.content|html_entity_decode %}
