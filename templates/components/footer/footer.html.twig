@@ -1,10 +1,12 @@
+{% set controllerName = app.request.attributes.get("_controller")|split('\\')[3]|split(':')[0] %}
+
 {% set itemsMenu =
     [
       [
-        ['Accueil','app_home'],
-        ['Recherche','app_search'],
-        ['Classement','app_ranking_points'],
-        ['Tickets','app_ticket'],
+        ['Accueil','app_home', 'HomeController'],
+        ['Recherche','app_search', 'SearchController'],
+        ['Classement','app_ranking_points', 'RankingController'],
+        ['Tickets','app_ticket', 'TicketController'],
       ],
       [
         'Gestion des cookies',
@@ -25,7 +27,7 @@
         <ul class="flex flex-col gap-4">
           {% for item in itemsMenu[0] %}
             <li>
-              <a href={{ item[1]}}>{{ item[0]}}</a>
+              <a class="{% if controllerName == item[2] %}underline font-bold text-primary{% endif %}" href={{ path(item[1])}}>{{ item[0]}}</a>
             </li>
           {% endfor%}
         </ul>
