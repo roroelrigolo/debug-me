@@ -1,12 +1,45 @@
-<form method="post">
-    {{ form_start(form) }}
-    {{ form_row(form.name, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.tag, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': ''}}) }}
-    <button type="submit">Rechercher</button>
+{% set rowClasses = 'flex flex-col items-start gap-4 w-full' %}
+{% set inputClasses = 'border rounded-lg px-3 py-2 w-full' %}
+
+<form class="flex flex-col items-center gap-4" method="post">
+    {{ 
+        form_start(
+            form,
+            {
+                'attr': {'class': 'flex flex-col gap-4 items-start'}
+            }
+        )
+    }}
+    
+    {{ 
+        form_row(
+            form.name, {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
+
+    <div class="{{rowClasses}}">
+        {{ form_label(form.tag, null, { 'label_attr' : { 'class' : 'font-bold' }}) }}
+
+        {% block choice_widget %}
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                {% for child in form.tag %}
+                        {{ form_widget(child, {'attr': {'class': 'hidden'}}) }}
+                        {{ form_label(
+                                child,
+                                null,
+                                { 'label_attr': { 'class': 'searchFilter font-bungee flex border rounded-lg px-4 py-3' }}
+                            )
+                        }}
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
+
+    <button class="font-bungee w-fit text-white bg-primary hover:bg-secondary p-4 rounded-xl text-base p-4 mt-4" type="submit">Rechercher</button>
     {{ form_end(form) }}
 </form>
 
