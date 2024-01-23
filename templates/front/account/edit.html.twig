@@ -1,0 +1,8 @@
+{% extends '/front/base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    {% include 'components/text/_title_index.html.twig' with {'text': "Modification de votre compte"} %}
+    {% include 'front/account/_form.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
+{% endblock %}
