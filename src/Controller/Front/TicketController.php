@@ -50,12 +50,12 @@ class TicketController extends AbstractController
             $isNotified = $pointService->addPoint($ticket->getAuthor());
             if($isNotified){
                 $this->addFlash('notification', [
-                    'Votre ticket a était ajouté avec succès',
+                    'Votre ticket a été ajouté avec succès',
                     'Vous venez de passer au niveau suivant ! Félicitation 🤙 </br> Vous êtes maintenant un <span class="font-bungee">'.$ticket->getAuthor()->getLevel()->getName().'</span>'
                 ]);
             }
             else{
-                $this->addFlash('notification', ['Votre ticket a était ajouté avec succès']);
+                $this->addFlash('notification', ['Votre ticket a été ajouté avec succès']);
             }
             return $this->redirectToRoute('app_ticket', [], Response::HTTP_SEE_OTHER);
         }
@@ -82,7 +82,7 @@ class TicketController extends AbstractController
             $commentRepository->add($comment);
             $pointService->addPoint($ticket->getAuthor());
 
-            $this->addFlash('notification', ['Votre commentaire a était ajouté avec succès 👏']);
+            $this->addFlash('notification', ['Votre commentaire a été ajouté avec succès 👏']);
             return $this->redirectToRoute('app_ticket_show', ['uuid'=>$ticket->getUuid()], Response::HTTP_SEE_OTHER);
         }
 
