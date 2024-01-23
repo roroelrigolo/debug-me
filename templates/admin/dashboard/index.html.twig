@@ -12,14 +12,14 @@
 %}
 
 {% block body %}
-        {% include 'components/text/_title_index.html.twig' with {'text': 'Bonjour, Romaing !'} %}
-        <p>C'est ici que vous pouvez administrer <strong>debug.me</strong>.</p>
-        <div class="grid grid-cols-3 grid-rows-2 gap-4 w-[950px] h-[375px]">
-            {% for item in navigationLinks %}
-                <a class="p-4 bg-tertiary hover:bg-white text-white hover:text-tertiary flex justify-start items-end border-4 border-tertiary rounded-lg {{ item[0]}}" href="{{ path('' ~ item[1] ~ '') }}">
-                    <p class="font-bungee text-2xl">{{ item[3] }}</p>
-                </a>
-            {% endfor %}
-
-        </div>
+    {% set text = 'Bonjour ' ~ app.user.username %}
+    {% include 'components/text/_title_index.html.twig' with {'text': text} %}
+    <p>C'est ici que vous pouvez administrer <strong>debug.me</strong>.</p>
+    <div class="grid grid-cols-3 grid-rows-2 gap-4 w-[950px] h-[375px]">
+        {% for item in navigationLinks %}
+            <a class="p-4 bg-tertiary hover:bg-white text-white hover:text-tertiary flex justify-start items-end border-4 border-tertiary rounded-lg {{ item[0]}}" href="{{ path('' ~ item[1] ~ '') }}">
+                <p class="font-bungee text-2xl">{{ item[3] }}</p>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
