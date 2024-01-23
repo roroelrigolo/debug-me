@@ -43,30 +43,40 @@
             }
         )
     }}
-    <div class="{{ rowClasses }}">
-        <label class="font-bold">Rôles</label>
-        {% for label, value in field_choices(form.roles) %}
-            <label>
-                <input
-                    class="hidden peer"
-                    type="checkbox"
-                    name="{{field_name(form.roles)}}"
-                    value="{{value}}"
-                />
-                <span class="flex items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-tertiary before:peer-checked:border-[6px]">
-                    {{ label }}
-                </span>
-            </label>
+
+    {{ form_label(form.roles, null, { 'label_attr' : { 'class' : 'font-bold' }}) }}
+
+    {% block choice_widget %}
+        {% for child in form.roles %}
+            {{ form_widget(child, {'attr': {'class': 'hidden peer'}}) }}
+            {{ 
+                form_label(
+                    child,
+                    null,
+                    {
+                        'label_attr': 
+                            {
+                                'class': "flex items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-tertiary before:peer-checked:border-[6px]"
+                            },
+                    }
+                )
+            }}
         {% endfor %}
-    </div>
-    <div class="flex">
-        {% if user.picture is not null %}
-            <img width="50px" height="50px" src="/uploads/users/pictures/{{ user.picture }}"
-        {% endif %}
-        {{ form_row(form.picture, {
-            'label_attr': {'class': 'font-bold mb-2'},
-            'attr': {'class': 'p-2 mb-4 w-full'}}) }}
-        {% if app.request.attributes.get('_route') == "app_admin_user_new"  %}
+    {% endblock %}
+    <div class="{{rowClasses}}">
+        {{ form_label(form.picture, null, { 'label_attr' : { 'class' : 'font-bold' }}) }}
+
+        <div class="flex items-center gap-4">
+            {% if user.picture is not null %}
+                <div class="w-[50px] h-[50px] rounded-full overflow-hidden flex items-center justify-center">
+                    <img src="/uploads/users/pictures/{{ user.picture }}"/>
+                </div>
+            {% endif %}
+            {{ form_row(form.picture, {
+                'label_attr': {'class': 'hidden'},
+                'attr': {'class': 'w-full file:border-0 font-bungee file:w-fit file:text-white file:bg-tertiary file:hover:bg-quartiary file:p-4 file:mr-4 file:rounded-xl'}}) }}
+        </div>
+
     </div>
     {% if app.request.attributes.get('_route') == "app_admin_user_new"  %}
         {{ 
@@ -97,6 +107,3 @@
         {% include 'admin/user/_delete_form.html.twig' %}
     {% endif %}
 </div>
-
-
-
