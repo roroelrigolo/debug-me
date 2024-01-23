@@ -30,6 +30,12 @@ input[type=radio]:checked+label {
   color: #FCFAF9;
 }
 
+.progressBar {
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--percentage);
+}
+
 /**
  * ----------------------------------------
  * animation slide-left
