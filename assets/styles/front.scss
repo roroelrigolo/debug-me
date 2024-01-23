@@ -6,14 +6,15 @@
       fill: #FCFAF9;
     }
   }
-  li:hover path,
-  div:hover path{
-    fill: #FCFAF9;
-  }
 }
 
-.card-ticket {
-  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.50);
+@media screen and (min-width:1280px) {
+  .front-menu{
+    li:hover path,
+    div:hover path{
+      fill: #FCFAF9;
+    }
+  }
 }
 
 .notification {
@@ -22,6 +23,17 @@
 .slide-left {
   -webkit-animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+input[type=radio]:checked+label {
+  background-color: #6817FF;
+  color: #FCFAF9;
+}
+
+.progressBar {
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--percentage);
 }
 
 /**

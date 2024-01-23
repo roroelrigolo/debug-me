@@ -1,15 +1,39 @@
+{% set rowClasses = 'flex flex-col items-start gap-4 w-full' %}
+{% set inputClasses = 'border rounded-lg px-3 py-2 w-full' %}
+
 {{ form_start(form, {
-    'attr': {'class': 'lg:w-1/2'}}) }}
-    {{ form_row(form.name, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.step, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.stage, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 mb-4 w-full'}}) }}
-<div class="flex">
+    'attr': {'class': 'flex flex-col gap-4 items-start w-[512px]'}}) }}
+    {{ 
+        form_row(
+            form.name,
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+    }}
+    {{
+        form_row(
+            form.step,
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+    }}
+    {{ 
+        form_row(
+            form.stage,
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': inputClasses},
+                'row_attr': {'class': rowClasses}
+            }
+        )
+}}
+<div class="flex flex-col items-start gap-4">
     {% include 'components/button/_btn_red.html.twig' with {'tag': 'button', 'text': text_btn} %}
     {{ form_end(form) }}
     {% if app.request.attributes.get('_route') == "app_admin_level_edit"  %}

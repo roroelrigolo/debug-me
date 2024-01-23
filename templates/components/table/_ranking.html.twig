@@ -1,7 +1,7 @@
 {% set titles = ['Rang','Debuger','Points'] %}
 
-<table class="table-auto mt-4 pb-4 w-full">
-    <thead class="bg-primary text-white border border-primary rounded-tl-xl">
+<table class="table-auto rounded-lg overflow-hidden ring-2 ring-inset ring-primary">
+    <thead class="bg-primary text-white">
     <tr>
         {% for title in titles %}
             <th class="text-start p-4">{{ title }}</th>
@@ -17,7 +17,7 @@
             {% set rank = rank+1 %}
             {% set diplayRank = true %}
         {% endif %}
-        <tr class="border border-primary hover:bg-gray-200">
+        <tr class="border-b-2 border-b-primary">
             <td class="p-4">
                 <p>{% if diplayRank == true %}{{ rank }}{% endif %}</p>
             </td>

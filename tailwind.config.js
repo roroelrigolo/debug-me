@@ -15,10 +15,17 @@ module.exports = {
         dark:"#131313",
         darklight:"rgba(19,19,19,0.49)",
         white:"#FCFAF9",
-        green:"#17F771",
-        greenborder:"rgba(23,247,113,0.3)",
+        green:"#30C56C",
+        greenborder:"18653780",
         greenlight:"#E5FAEC",
         graylight: "#C9C9C9"
+      },
+      gridTemplateColumns: {
+        'admin-layout': " 394px 1fr"
+      },
+      boxShadow: {
+        'ticket': '0px 1px 0px 0px rgba(0, 0, 0, 0.50)',
+        'ticket-hover': '0px 4px 0px 0px rgba(0, 0, 0, 0.50)',
       }
     },
   },

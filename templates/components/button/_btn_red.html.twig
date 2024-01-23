@@ -6,12 +6,12 @@
 {% endif %}
 
 {% if tag == "a" %}
-    <p class="font-bungee w-fit text-white bg-tertiary hover:bg-quartiary p-4 rounded-xl {{ size is defined ? size : 'text-base' }}">
+    <p class="font-bungee w-fit text-white bg-tertiary hover:bg-quartiary rounded-xl {{ tiny is defined ? 'text-xs px-4 py-2' : 'text-base p-4' }}">
         <a class="flex"
            href="{% if route_parameter is defined %}{{ path(route, parameter) }}{% else %}{{ path(route) }}{% endif %}">{{ text|raw }}</a>
     </p>
 {% elseif tag == "button" %}
-    <button class="font-bungee w-fit text-white bg-tertiary hover:bg-quartiary p-4 rounded-xl me-2 {{ size is defined ? size : 'text-base' }}" type="submit" class="btn">
+    <button class="font-bungee w-fit text-white bg-tertiary hover:bg-quartiary p-4 rounded-xl {{ tiny is defined ? 'text-xs px-4 py-2' : 'text-base p-4' }}" type="submit" class="btn">
         {{ text|raw }}
     </button>
 {% endif %}

@@ -4,17 +4,15 @@
 
 {% block body %}
     <div class="flex">
-        <div class="lg:w-1/3">
-            {% include 'components/text/_title_index_light.html.twig' with {'text': 'Ticket'} %}
+        <div class="lg:w-1/3 flex flex-col gap-4 items-start opacity-40">
+            {% include 'components/text/_title_index.html.twig' with {'text': 'Ticket'} %}
             {% include 'admin/ticket/_form_disabled.html.twig' with {'text_btn': "Sauvegarder les changements"} %}
         </div>
-        <div class="lg:w-2/3 ps-10">
+        <div class="lg:w-2/3 flex flex-col gap-4 items-start px-8">
             {% include 'components/text/_title_index.html.twig' with {'text': 'Modification des commentaires'} %}
 
             {% for message in app.flashes('success') %}
-                <div class="my-4">
-                    {% include 'components/alert/_success.html.twig' %}
-                </div>
+                {% include 'components/alert/_success.html.twig' %}
             {% endfor %}
 
             {% if comments is empty %}

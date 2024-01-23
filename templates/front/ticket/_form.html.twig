@@ -1,13 +1,52 @@
-{{ form_start(form) }}
-    {{ form_row(form.title,{ 'attr': {
-    'class' : 'border rounded p-2 mb-4 w-full'}}) }}
-    {{ form_row(form.content,{ 'attr': {
-        'class' : 'border rounded p-2 w-full'}}) }}
+{% set rowClasses = 'flex flex-col items-start gap-4 w-full' %}
+
+{{ 
+    form_start(
+        form,
+        {
+            'attr': {'class': 'flex flex-col gap-4 w-full'},
+        }
+    )
+}}
+    {{ 
+        form_row(
+            form.title,
+            { 
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class' : 'border rounded p-2 w-full'},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
+    {{ 
+        form_row(
+            form.content,
+            { 
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class' : 'border rounded p-2 w-full'},
+                'row_attr': {'class': rowClasses }
+            }
+        )
+    }}
 <p class="mb-4"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
-    {{ form_row(form.tags,{ 'attr': {
-    'class' : ''}}) }}
-<div class="flex">
+<div class="{{rowClasses}}">
+    {{ form_label(form.tags, null, { 'label_attr' : { 'class' : 'font-bold' }}) }}
+
+    {% block choice_widget %}
+        <div class="flex flex-wrap justify-start gap-4 md:gap-8">
+            {% for child in form.tags %}
+                    {{ form_widget(child, {'attr': {'class': 'hidden'}}) }}
+                    {{ form_label(
+                            child,
+                            null,
+                            { 'label_attr': { 'class': 'searchFilter font-bungee flex border rounded-lg px-4 py-3' }}
+                        )
+                    }}
+            {% endfor %}
+        </div>
+    {% endblock %}
+</div>
+<div class="mt-4">
     {% include 'components/button/_btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
 </div>
 {{ form_end(form) }}
-

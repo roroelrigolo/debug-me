@@ -3,15 +3,91 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
-    <div class="flex justify-center">
-        <div class="basis-1/6"></div>
-        <div class="basis-4/6">
-            <p>{{ user.name }} {{ user.firstname }}</p>
-            <p>{{ user.username }}</p>
-            <p>{{ user.email }}</p>
-            <p>Membre depuis le {{ user.dateRegister|date('d/m/Y') }}</p>
-            <p>Points : {{ user.points }}</p>
+<div class="px-16 lg:px-64 py-16 flex justify-center">
+    <div class="flex flex-col items-center gap-8 max-w-[1024px]">
+        
+        {# Photo + Nom + Prénom + Pseudo #}
+
+        <div class="flex flex-col items-center gap-4">
+            
+            <div class="w-[250px] h-[250px] rounded-xl border overflow-hidden flex items-center justify-center">
+                <img src="/uploads/users/pictures/{% if user.picture is not null %}{{ user.picture }}{% else %}default.png{% endif %}"/>
+            </div>
+            <p class="font-bungee text-3xl">{{ user.firstname }} {{ user.name }}</p>
+            <p class="font-bungee text-graylight">{{ user.username }}</p>
         </div>
-        <div class="basis-1/6"></div>
+
+        {% if app.user.username == user.username %}
+            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Modifier mon compte', 'route': 'app_account_edit', 'route_parameter': {0:{'name':'username','value':user.username}}} %}
+        {% endif %}
+
+        {# Membre + Email #}
+
+        <div class="flex flex-col md:flex-row items-center gap-8 text-center">
+            <div class="flex items-center gap-4">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.9171 3.52988C14.2076 3.23892 14.2098 2.76752 13.9208 2.47388C13.6302 2.17868 13.1554 2.17492 12.8602 2.46549L12.8594 2.46619L12.8587 2.46695L12.857 2.46862C12.8098 2.51578 12.7655 2.56585 12.7226 2.61696C12.6512 2.70225 12.5578 2.82325 12.4609 2.97576C12.3069 3.21821 12.1342 3.55588 12.035 3.96768C11.123 4.24335 10.459 5.08992 10.459 6.09132C10.459 7.31745 11.4528 8.30959 12.6782 8.30959C13.9028 8.30959 14.8965 7.31727 14.8965 6.09132C14.8965 5.18684 14.3547 4.40851 13.5781 4.06326C13.6225 3.95794 13.6746 3.86265 13.7271 3.78C13.7831 3.69182 13.8359 3.62388 13.8723 3.58041C13.8904 3.55884 13.904 3.54383 13.9114 3.5359L13.9171 3.52988Z" fill="#6817FF"/>
+                    <path d="M9.80194 6.97576C9.73941 6.76028 9.484 6.64542 9.30997 6.78704C8.46943 7.47107 7.83951 8.40585 7.53751 9.48097C7.53097 9.50426 7.50962 9.5203 7.48543 9.5203C5.61354 9.5203 4.0957 11.0256 4.0957 12.9022C4.0957 14.0077 4.62853 14.9891 5.44502 15.5943C6.01238 16.0325 6.72253 16.2832 7.48543 16.2832C8.27508 16.2832 8.9947 16.0049 9.56249 15.5524C9.67012 15.4666 9.82055 15.4544 9.93853 15.5252C10.7395 16.0064 11.6731 16.2832 12.6772 16.2832C13.6008 16.2832 14.4694 16.0446 15.2256 15.6358C15.3358 15.5762 15.4708 15.5866 15.5728 15.6592C16.1212 16.0499 16.7927 16.2832 17.5216 16.2832C18.2944 16.2832 18.9974 16.0318 19.5637 15.593C20.3795 14.9798 20.9036 13.9979 20.9036 12.9022C20.9036 11.2052 19.6679 9.8095 18.044 9.56C17.9202 9.54099 17.8161 9.4543 17.7786 9.33487C17.4597 8.32166 16.8516 7.44053 16.0491 6.78906C15.8752 6.6479 15.6205 6.76259 15.5579 6.97765C15.1951 8.22463 14.0439 9.13491 12.6808 9.13491C11.3162 9.13491 10.1641 8.22384 9.80194 6.97576Z" fill="#6817FF"/>
+                    <path d="M5.69837 17.335C5.6409 17.0699 5.95087 16.851 6.20356 16.9496C6.58808 17.0996 7.00599 17.1804 7.4409 17.1804C8.23815 17.1804 8.96464 16.8991 9.53761 16.442C9.64519 16.3561 9.79564 16.3439 9.91359 16.4148C10.7219 16.9008 11.6642 17.1804 12.6778 17.1804C13.6101 17.1804 14.4868 16.9394 15.25 16.5265C15.3601 16.4669 15.4951 16.4772 15.5971 16.5499C16.1505 16.9446 16.8285 17.1804 17.5644 17.1804C18.0028 17.1804 18.419 17.1002 18.801 16.9512C19.0539 16.8525 19.3644 17.0714 19.3069 17.3368L18.9962 18.7699C18.6505 20.3627 17.2417 21.5 15.611 21.5H9.39468C7.76394 21.5 6.35514 20.3628 6.00951 18.7699L5.69837 17.335Z" fill="#6817FF"/>
+                </svg>
+                <p>Membre depuis le {{ user.dateRegister|date('d/m/Y') }}</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.439 3C18.78 3 20.07 3.53 21.019 4.481C21.969 5.43 22.5 6.71 22.5 8.05V15.95C22.5 18.74 20.23 21 17.439 21H7.56C4.769 21 2.5 18.74 2.5 15.95V8.05C2.5 5.26 4.759 3 7.56 3H17.439ZM18.57 8.2C18.36 8.189 18.16 8.26 18.009 8.4L13.5 12C12.92 12.481 12.089 12.481 11.5 12L7 8.4C6.689 8.17 6.259 8.2 6 8.47C5.73 8.74 5.7 9.17 5.929 9.47L6.06 9.6L10.61 13.15C11.17 13.59 11.849 13.83 12.56 13.83C13.269 13.83 13.96 13.59 14.519 13.15L19.03 9.54L19.11 9.46C19.349 9.17 19.349 8.75 19.099 8.46C18.96 8.311 18.769 8.22 18.57 8.2Z" fill="#6817FF"/>
+                </svg>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+
+        {# Niveau #}
+
+        <div class="flex items-center gap-8 rounded-xl border p-6">
+            <div class="flex flex-col gap-1 items-start">
+                <h1 class="font-bungee">{{ user.level.name }}</h1>
+                <p class="text-xs uppercase text-graylight font-bold">{{ user.points }} / {{ user.level.stage + 1 }}</p>
+            </div>
+            <div class="w-[32px] h-[32px] relative flex items-center justify-center -z-10">
+                <svg class="absolute top-0 left-0 " width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="progressBar" cx="16.5" cy="16" r="14" stroke="#6817FF" stroke-width="4" style='--percentage: {{ 100 - (user.points / 2.5 % 250) }}'/>
+                </svg>
+                <svg class="absolute top-0 left-0 opacity-20" width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16.5" cy="16" r="14" stroke="#6817FF" stroke-width="4" />
+                </svg>
+                <p class="text-xs text-primary font-bold">{{ user.level.step }}</p>
+            </div>
+        </div>
+
+        {# Tickets | Commentaires #}
+        
+        <div class="flex items-center gap-4">
+            <div class="flex flex-col items-center gap-1">
+                <p class="font-bungee">Tickets</p>
+                <p>{{user.tickets|length}}</p>
+            </div>
+            <span class="w-[1px] h-full bg-graylight"></span>
+            <div class="flex flex-col items-center gap-1">
+                <p class="font-bungee">Commentaires</p>
+                <p>{{user.comments|length}}</p>
+            </div>
+        </div>
+        
+        {# Activité #}
+
+        <h2 class="font-bungee text-2xl">Activité</h2>
+
+        <div class="flex flex-col items-center gap-4">
+            <h3 class="font-bungee">Les tickets de {{user.firstname}}</h3>
+            {% if user.tickets|length %}
+                <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
+                    {% for ticket in user.tickets %}
+                        {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Aucun ticket à afficher. ✨</p>
+            {% endif %}
+        </div>
     </div>
+</div>
 {% endblock %}

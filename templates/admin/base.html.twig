@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        <link href="primsjs/themes/prism.css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -15,11 +14,9 @@
         {% endblock %}
     </head>
     <body>
-        <div class="flex h-screen">
-            <div class="nav-admin bg-tertiary fixed h-full p-14">
-                {{ include('components/header/admin/header.html.twig') }}
-            </div>
-            <div class="w-full h-fit content-admin p-20">
+        <div class="grid grid-cols-admin-layout">
+            {{ include('components/header/admin/header.html.twig') }}
+            <div class="p-16 flex flex-col items-start gap-4">
                 {% block body %}{% endblock %}
             </div>
         </div>

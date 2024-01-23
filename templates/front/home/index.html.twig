@@ -2,34 +2,99 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block body %}
-
-<div class="container w-7/12 mx-auto">
-    <div class="text-center mt-40 mb-10">
-        <h1 class="font-bungee text-5xl	mb-4">Débugguez et aidez à débugguer</h1>
-        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
-    </div>
-
-    {% include '/front/search/_form.html.twig' %}
-
-    {% set stats = [
+{% set 
+    stats = [
         ['#1 🥇','Numéro 1 du debugging'],
         ['+500','Tickets'],
         ['+100','Utilisateurs'],
         ['10 m','Visites mensuelles']
-    ] %}
-    <div class="grid grid-cols-4 gap-6 mb-40">
-        {% for item in stats %}
-            <div class="border border-graylight rounded-2xl p-4">
-                <p class="font-bungee text-3xl">{{ item.0 }}</p>
-                <p class="text-xl text-graylight">{{ item.1 }}</p>
+    ]
+%}
+
+{% set 
+    logos = [
+        ['microsoft', 'Logo Microsoft'],
+        ['apple', 'Logo Apple'],
+        ['bcorp', 'Logo Bcorp'],
+        ['plugo', 'Logo Plugo'],
+        ['laconsole', 'Logo LaConsole'],
+        ['amiltone', 'Logo Amiltone'],
+    ]
+%}
+
+{% block body %}
+
+<div class="px-16 lg:px-64 py-16 flex justify-center">
+    <div class="flex flex-col items-center gap-32 md:gap-64 mt-16 md:mt-48 max-w-[1024px]">    
+        
+        {# Viewport #}
+
+        <div class="flex flex-col gap-32">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-8 text-center">
+                    <h1 class="font-bungee text-5xl">Débugguez et aidez à débugguer</h1>
+                    <p class="text-graylight text-2xl">Recherchez un ticket similaire à votre problème</p>
+                </div>
+                {% include '/front/search/_form.html.twig' %}
             </div>
-        {% endfor %}
+            <div class="flex flex-col md:flex-row md:items-start gap-4">
+                {% for item in stats %}
+                    <div class="flex flex-col justify-start gap-2 flex-1 border border-graylight rounded-2xl p-6">
+                        <p class="font-bungee text-2xl md:text-3xl">{{ item.0 }}</p>
+                        <p class="text-lg md:text-xl text-graylight">{{ item.1 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {# Logos #}
+
+        <div class="flex flex-col gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Ils utilisent debug.me</h2>
+                <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
+            </div>
+            <ul class="flex flex-wrap justify-center gap-16">
+                {% for logo in logos %}
+                    <li>
+                        <img src="img/logo_{{logo[0]}}.svg" alt={{logo[1]}} />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {# Classement #}
+
+        <div class="flex flex-col items-center gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Classement</h2>
+                <p class="text-graylight text-2xl">Gagnez des points en interagissant sur le site web et montez dans le classement</p>
+            </div>
+            
+            {% include 'components/table/_ranking.html.twig' with { 'users' : users } %}
+
+            {% include 'components/button/_btn_primary.html.twig' with {'tag': 'a', 'route': 'app_ranking_points', 'text': "voir le classement en entier"} %}
+
+        </div>
+
+        {# Tickets #}
+
+        <div class="flex flex-col items-center gap-16">        
+            <div class="flex flex-col gap-8 text-center">
+                <h2 class="font-bungee text-5xl">Les derniers tickets</h2>
+                <p class="text-graylight text-2xl">Consultez les derniers tickets créés par la communauté !</p>
+            </div>
+            
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
+                {% for ticket in tickets %}
+                    {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
+                {% endfor %}
+            </div>
+
+            {% include 'components/button/_btn_primary.html.twig' with {'tag': 'a', 'route': 'app_ticket', 'text': "Voir les derniers tickets"} %}
+
+        </div>
     </div>
 
-    <div class="text-center mb-20">
-        <h2 class="font-bungee text-5xl	mb-4">Ils utilisent debug.me</h2>
-        <p class="text-graylight text-2xl">La plateforme par les développeurs pour les développeurs</p>
-    </div>
 </div>
 {% endblock %}

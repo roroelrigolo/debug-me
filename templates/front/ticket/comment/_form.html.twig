@@ -1,9 +1,16 @@
 {{ form_start(form, {
-    'attr': {'class': 'w-full'}}) }}
-    {{ form_row(form.content, {
-        'label_attr': {'class': 'font-bold mb-2'},
-        'attr': {'class': 'border rounded p-2 w-full'}}) }}
-<p class="mb-4"><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
+    'attr': {'class': 'flex flex-col gap-4 w-full'}}) }}
+    {{ 
+        form_row(
+            form.content,
+            {
+                'label_attr': {'class': 'font-bold'},
+                'attr': {'class': 'border rounded p-2 w-full'},
+                'row_attr': {'class': 'flex flex-col gap-4'}
+            }
+        )
+    }}
+<p><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
 <div class="flex">
     {% include 'components/button/_btn_primary.html.twig' with {'tag': 'button', 'text': text_btn} %}
     {{ form_end(form) }}

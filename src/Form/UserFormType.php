@@ -32,8 +32,8 @@ class UserFormType extends AbstractType
             ->add('email')
             ->add('roles', ChoiceType::class, [
                     'choices' => [
-                        'ROLE_ADMIN' => 'ROLE_ADMIN',
-                        'ROLE_USER' => 'ROLE_USER'
+                        'ADMIN' => 'ROLE_ADMIN',
+                        'USER' => 'ROLE_USER'
                     ],
                     'expanded' => true,
                     'multiple' => true,

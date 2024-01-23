@@ -1,5 +1,5 @@
-<table class="table-auto mt-4 pb-4">
-    <thead class="bg-black text-white border border-black rounded-tl-xl">
+<table class="table-auto rounded-lg overflow-hidden ring-2 ring-inset ring-black">
+    <thead class="bg-black text-white">
     <tr>
         {% for title in titles %}
             <th class="text-start p-4">{{ title }}</th>
@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         {% for data in datas %}
-        <tr class="border border-black hover:bg-gray-200">
+        <tr class="border-b-2 border-b-black">
             {% for value in data.data[0] %}
                 <td class="p-4">
                     <a href="{% if route_edit %}{{ path(route_edit, {'id':data.id}) }}{% endif %}">
@@ -24,6 +24,21 @@
                     </a>
                 </td>
             {% endfor %}
+            {% if hasComments is defined %}
+                <td class="p-4">
+                    <a href="{% if route_comment %}{{ path(route_comment, {'id':data.id}) }}{% endif %}">
+                        {% include 'components/button/_btn_red.html.twig' with
+                            {
+                                'tag': 'a',
+                                'text': 'Voir les commentaires',
+                                'route': 'app_admin_ticket_comment',
+                                'route_parameter': {0:{'name':'id','value':data.id}},
+                                'tiny': true,
+                            }
+                        %}
+                    </a>
+                </td>
+            {% endif %}
         </tr>
     {% endfor %}
     </tbody>

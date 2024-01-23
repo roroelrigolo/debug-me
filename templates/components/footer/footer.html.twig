@@ -1,0 +1,74 @@
+{% set controllerName = app.request.attributes.get("_controller")|split('\\')[3]|split(':')[0] %}
+
+{% set itemsMenu =
+    [
+      [
+        ['Accueil','app_home', 'HomeController'],
+        ['Recherche','app_search', 'SearchController'],
+        ['Classement','app_ranking_points', 'RankingController'],
+        ['Tickets','app_ticket', 'TicketController'],
+      ],
+      [
+        'Gestion des cookies',
+        'Politique de confidentialité',
+        'CGV',
+      ],
+    ]
+%}
+
+<footer class="border-primary border-t-2 p-8 pt-16">
+  <div class="flex flex-col gap-16">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <a class="lg:flex-1" href="{{ path('app_home') }}">
+        <img class="" width="150" src="/img/logo_fond_blue.png">
+      </a>
+      <div class="flex flex-col gap-4 lg:flex-1">
+        <p class="font-bungee text-primary">Le produit</p>
+        <ul class="flex flex-col gap-4">
+          {% for item in itemsMenu[0] %}
+            <li>
+              <a class="{% if controllerName == item[2] %}underline font-bold text-primary{% endif %}" href={{ path(item[1])}}>{{ item[0]}}</a>
+            </li>
+          {% endfor%}
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4 lg:flex-1">
+        <p class="font-bungee text-primary">Légal</p>
+        <ul class="flex flex-col gap-4">
+          {% for item in itemsMenu[1] %}
+            <li>{{ item}}</li>
+          {% endfor%}
+        </ul>
+      </div>
+      <div class="flex flex-col gap-4 lg:flex-1">
+        <p class="font-bungee text-primary">À propos</p>
+        <p>Proin eu diam eget felis pellentesque aliquet. Curabitur a justo pellentesque, sagittis quam ut, pharetra sem. Integer vel porttitor quam, ac rhoncus odio. Aenean venenatis ligula orci, at congue mi venenatis non. Morbi suscipit odio a suscipit tincidunt. In maximus faucibus imperdiet.</p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-8 justify-center">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_359_1153)">
+            <path d="M11.3201 5.41084e-05C11.9447 -0.0215105 12.5671 0.0844131 13.1494 0.311361C13.7316 0.538309 14.2616 0.881521 14.7068 1.32005C15.136 1.76526 15.4716 2.29198 15.6937 2.86909C15.9158 3.4462 16.02 4.06199 16.0001 4.68005V11.3201C16.0001 12.7067 15.5468 13.9001 14.6801 14.7401C13.7607 15.5889 12.5441 16.0415 11.2935 16.0001H4.70679C3.46663 16.0385 2.26146 15.5856 1.35346 14.7401C0.903357 14.2892 0.550912 13.7505 0.318079 13.1576C0.0852461 12.5646 -0.0229861 11.93 0.000124854 11.2934V4.68005C0.000124854 1.86672 1.86679 5.41084e-05 4.68013 5.41084e-05H11.3201ZM11.3535 1.48672H4.70679C3.74012 1.48672 2.90679 1.77339 2.35346 2.32005C2.05779 2.63498 1.82865 3.00628 1.67974 3.41178C1.53083 3.81727 1.46521 4.24862 1.48679 4.68005V11.2934C1.48679 12.2934 1.77346 13.0934 2.35346 13.6801C3.00034 14.2522 3.84402 14.5509 4.70679 14.5134H11.2935C12.1562 14.5509 12.9999 14.2522 13.6468 13.6801C13.9574 13.3728 14.2007 13.0044 14.3614 12.5981C14.522 12.1918 14.5965 11.7566 14.5801 11.3201V4.68005C14.6016 3.82183 14.2912 2.9884 13.7135 2.35339C13.3985 2.05772 13.0272 1.82858 12.6217 1.67967C12.2162 1.53076 11.7849 1.46514 11.3535 1.48672ZM8.00012 3.84005C10.2601 3.84005 12.1335 5.70672 12.1335 7.97339C12.1335 9.06962 11.698 10.1209 10.9228 10.8961C10.1477 11.6712 9.09635 12.1067 8.00012 12.1067C6.9039 12.1067 5.85257 11.6712 5.07742 10.8961C4.30227 10.1209 3.86679 9.06962 3.86679 7.97339C3.86679 6.87716 4.30227 5.82583 5.07742 5.05068C5.85257 4.27553 6.9039 3.84005 8.00012 3.84005ZM8.00012 5.32005C7.29927 5.32356 6.62811 5.60353 6.13252 6.09912C5.63693 6.59471 5.35696 7.26586 5.35346 7.96672C5.35696 8.66758 5.63693 9.33874 6.13252 9.83432C6.62811 10.3299 7.29927 10.6099 8.00012 10.6134C8.70098 10.6099 9.37214 10.3299 9.86773 9.83432C10.3633 9.33874 10.6433 8.66758 10.6468 7.96672C10.6433 7.26586 10.3633 6.59471 9.86773 6.09912C9.37214 5.60353 8.70098 5.32356 8.00012 5.32005ZM12.2935 2.80672C12.541 2.80672 12.7784 2.90505 12.9534 3.08009C13.1285 3.25512 13.2268 3.49252 13.2268 3.74005C13.2268 3.98759 13.1285 4.22499 12.9534 4.40002C12.7784 4.57505 12.541 4.67339 12.2935 4.67339C12.0459 4.67339 11.8085 4.57505 11.6335 4.40002C11.4585 4.22499 11.3601 3.98759 11.3601 3.74005C11.3601 3.49252 11.4585 3.25512 11.6335 3.08009C11.8085 2.90505 12.0459 2.80672 12.2935 2.80672Z" fill="#131313"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_359_1153">
+              <rect width="16" height="16" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_359_1155)">
+            <path d="M15 -0.0786133C15.5533 -0.0786133 16 0.368053 16 0.921387V14.9214C16 15.4747 15.5533 15.9214 15 15.9214H11V9.92139H13L13.5 7.42139H11V6.42139C11 5.42139 11.5 4.92139 12.5 4.92139H13.5V2.42139H11.5C9.66 2.42139 8.5 3.86139 8.5 5.92139V7.42139H6.5V9.92139H8.5V15.9214H1C0.734784 15.9214 0.48043 15.816 0.292893 15.6285C0.105357 15.441 0 15.1866 0 14.9214L0 0.921387C0 0.368053 0.446667 -0.0786133 1 -0.0786133H15Z" fill="#131313"/>
+          </g>
+          <defs>
+            <clipPath id="clip0_359_1155">
+              <rect width="16" height="16" fill="white"/>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      <p class="text-xs font-bungee text-primary text-center">Copyright © 2024 debug.me. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>

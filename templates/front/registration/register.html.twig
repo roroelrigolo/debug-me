@@ -3,38 +3,36 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="flex h-screen">
-        <div class="lg:w-1/2 bg-primary flex flex-col justify-center h-full px-14">
-            <img class="mb-4" width="200" src="/img/logo_fond_blanc.png">
-            <p class="font-bungee text-white text-4xl pb-2">Bienvenue sur debug.me</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 h-screen">
+        <div class="bg-primary hidden lg:flex flex-col justify-center p-16 gap-4">
+            <img width="200" src="/img/logo_fond_blanc.png">
+            <p class="font-bungee text-white text-3xl lg:text-4xl">Bienvenue sur debug.me</p>
             <p class="text-white">Debugguer son code, c’est mener une enquête dans laquelle vous êtes aussi le meurtrier. 🕵🏻‍♂</p>
         </div>
-        <div class="lg:w-1/2">
+        <div class="flex flex-col justify-center p-16 gap-4">
             {{ form_errors(registrationForm) }}
 
-            <div class="flex flex-col justify-center h-full px-14">
-                <h1 class="font-bungee text-4xl pb-2">Inscription</h1>
-                {{ form_start(registrationForm, {
-                    'attr': {'class': 'lg:w-1/2'}}) }}
-                    {{ form_row(registrationForm.name, {
-                        'label_attr': {'class': 'font-bold mb-2'},
-                        'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
-                    {{ form_row(registrationForm.firstname, {
-                        'label_attr': {'class': 'font-bold mb-2'},
-                        'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
-                    {{ form_row(registrationForm.username, {
-                        'label_attr': {'class': 'font-bold mb-2'},
-                        'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
-                    {{ form_row(registrationForm.email, {
-                        'label_attr': {'class': 'font-bold mb-2'},
-                        'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
-                    {{ form_row(registrationForm.plainPassword, {
-                        'label_attr': {'class': 'font-bold mb-2'},
-                        'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
-                    <p class="mb-4">Déjà un compte ?<a class="text-primary underline" href="/login">Connectez-vous</a></p>
-                    <button class="font-bungee w-fit text-white bg-primary p-4 rounded-xl" type="submit" class="btn">S'inscrire</button>
-                {{ form_end(registrationForm) }}
-            </div>
+            <h1 class="font-bungee text-3xl lg:text-4xl">Inscription</h1>
+            {{ form_start(registrationForm, {
+                'attr': {'class': 'flex flex-col justify-center gap-4 lg:w-1/2'}}) }}
+                {{ form_row(registrationForm.name, {
+                    'label_attr': {'class': 'font-bold mb-4'},
+                    'attr': {'class': 'border rounded p-2 w-full'}} ) }}
+                {{ form_row(registrationForm.firstname, {
+                    'label_attr': {'class': 'font-bold mb-2'},
+                    'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
+                {{ form_row(registrationForm.username, {
+                    'label_attr': {'class': 'font-bold mb-2'},
+                    'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
+                {{ form_row(registrationForm.email, {
+                    'label_attr': {'class': 'font-bold mb-2'},
+                    'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    'label_attr': {'class': 'font-bold mb-2'},
+                    'attr': {'class': 'border rounded p-2 mb-2 w-full'}}) }}
+                <p>Déjà un compte ?<a class="text-primary underline font-bold ml-1" href="/login">Connectez-vous</a></p>
+                <button class="font-bungee w-fit text-white bg-primary p-4 rounded-xl" type="submit" class="btn">S'inscrire</button>
+            {{ form_end(registrationForm) }}
         </div>
     </div>
 

@@ -3,36 +3,40 @@
 {% block title %}Ticket{% endblock %}
 
 {% block body %}
-    <div class="flex justify-center">
-        <div class="basis-1/4"></div>
-        <div class="basis-1/2 flex flex-col items-center">
-            <h1 class="font-bungee text-3xl	mb-4">{{ ticket.title }}</h1>
-            <div class="flex grid grid-cols-4 gap-10 mb-4">
-                <div class="flex items-center"><span class="font-bold mr-2">Auteur :</span><a href="{{ path('app_account_show', {username: ticket.author.username}) }}" class="text-graylight hover:text-primary">@{{ ticket.author.username }}</a></div>
-                <div class="flex items-center"><span class="font-bold mr-2">Statut :</span>{% include '/components/chips/_chips_primary.html.twig' with {'text': ticket.statut.name} %}</div>
-                <div class="flex items-center"><span class="font-bold mr-2">Date :</span><span class="text-graylight">{{ ticket.updatedAt|date('d M Y') }}</span></div>
-                <div class="flex items-center"><span class="font-bold mr-2">Tags :</span><span class="text-graylight">{% for tag in ticket.tags %}{{ tag.name }} {% endfor %}</span></div>
+    <div class="px-16 lg:px-64 py-16 flex justify-center">
+        <div class="flex flex-col items-center gap-4">
+            <div class="flex flex-col items-center gap-4">            
+                <h1 class="font-bungee text-3xl">{{ ticket.title }}</h1>
+                <div class="flex flex-wrap gap-x-16 gap-y-4">
+                    <div class="flex items-center gap-4"><span class="font-bold">Auteur :</span><a href="{{ path('app_account_show', {username: ticket.author.username}) }}" class="text-graylight hover:text-primary">@{{ ticket.author.username }}</a></div>
+                    <div class="flex items-center gap-4"><span class="font-bold">Statut :</span>{% include '/components/chips/_chips_primary.html.twig' with {'text': ticket.statut.name} %}</div>
+                    <div class="flex items-center gap-4"><span class="font-bold">Date :</span><span class="text-graylight">{{ ticket.updatedAt|date('d M Y') }}</span></div>
+                    <div class="flex items-center gap-4"><span class="font-bold">Tags :</span><span class="text-graylight">{% for tag in ticket.tags %}{{ tag.name }} {% endfor %}</span></div>
+                </div>
             </div>
 
             {% for message in app.flashes('success') %}
-                <div class="my-4">
                     {% include 'components/alert/_success.html.twig' %}
+            {% endfor %}
+
+            <div class="flex flex-col items-start gap-4 w-full">
+                <p class="font-bungee text-xl">Question principale</p>
+                {% include 'components/ticket/_ticket_content.html.twig' with {'comment': ticket }  %}
+            </div>
+
+            <div class="flex flex-col items-start gap-4 w-full">
+                <p class="font-bungee text-xl"> {{ ticket.comments|length }} commentaires</p>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    {% for comment in ticket.comments|sort((a, b) => a.updatedAt <=> b.updatedAt) %}
+                        {% include 'components/comment/_comment.html.twig' with {'comment': comment }  %}
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            </div>
 
-            <p class="font-bungee text-xl my-4 w-full">Question principale</p>
-
-            {% include 'components/ticket/_ticket_content.html.twig' with {'comment': ticket }  %}
-
-            <p class="font-bungee text-xl my-4 w-full"> {{ ticket.comments|length }} commentaires</p>
-
-            {% for comment in ticket.comments|sort((a, b) => a.updatedAt <=> b.updatedAt) %}
-                {% include 'components/comment/_comment.html.twig' with {'comment': comment }  %}
-            {% endfor %}
-
-            <p class="font-bungee text-xl my-4 w-full">Ajouter un commentaire</p>
-            {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Ajouter mon commentaire"} %}
+            <div class="flex flex-col items-start gap-4 w-full">        
+                <p class="font-bungee text-xl">Ajouter un commentaire</p>
+                {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Ajouter mon commentaire"} %}
+            </div>
         </div>
-        <div class="basis-1/4"></div>
     </div>
 {% endblock %}

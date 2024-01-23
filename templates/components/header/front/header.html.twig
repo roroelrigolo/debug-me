@@ -9,13 +9,13 @@
     ]
 %}
 
-<nav class="header bg-white sticky top-0 front-menu flex items-center fs-16 w-full py-6 px-8 mb-8 border-b">
+<nav class="header bg-white sticky top-0 front-menu flex items-center fs-16 w-full py-6 px-8 mb-8 border-b z-50">
     <div class="flex flex-1 me-auto">
         <a href="{{ path('app_home') }}">
             <img class="" width="150" src="/img/logo_fond_blue.png">
         </a>
     </div>
-    <ul class="flex flex-1 grid grid-cols-4 gap-4">
+    <ul class="hidden xl:flex flex-1 gap-4">
         {% for item in itemsMenu %}
             {% include '/components/header/front/_item_header.html.twig' with
                 {
@@ -27,11 +27,11 @@
             %}
         {% endfor %}
     </ul>
-    <div class="flex flex-1 justify-end ms-auto">
+    <div class="hidden xl:flex flex-1 justify-end items-center gap-4 ms-auto">
         {% if app.user %}
             {% include '/components/header/front/_item_account_header.html.twig' with
                 {
-                    'text': app.user.firstname~' '~app.user.name,
+                    'text': app.user.firstname,
                     'route': 'app_account_show',
                     'username': app.user.username,
                     'svg': '<svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.1739C16.3386 15.1739 20 15.8789 20 18.599C20 21.32 16.3146 22 12 22C7.66237 22 4 21.295 4 18.575C4 15.8539 7.68538 15.1739 12 15.1739ZM12 2C14.9391 2 17.294 4.35402 17.294 7.29105C17.294 10.2281 14.9391 12.5831 12 12.5831C9.0619 12.5831 6.70601 10.2281 6.70601 7.29105C6.70601 4.35402 9.0619 2 12 2Z" fill="#FCFAF9"/></svg>'
@@ -56,6 +56,59 @@
                 }
             %}
         {% endif %}
+    </div>
+
+    {# Mobile menu #}
+    <div class="flex xl:hidden p-4 border rounded-lg relative">
+        <div class="width-[24px] height-[24px] mobileMenuButton">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.34 1.99991C19.73 1.99991 22 4.37991 22 7.91991V16.0899C22 19.6199 19.73 21.9999 16.34 21.9999H7.67C4.28 21.9999 2 19.6199 2 16.0899V7.91991C2 4.37991 4.28 1.99991 7.67 1.99991H16.34ZM16.48 10.8009C15.82 10.8009 15.28 11.3399 15.28 11.9999C15.28 12.6599 15.82 13.1999 16.48 13.1999C17.14 13.1999 17.67 12.6599 17.67 11.9999C17.67 11.3399 17.14 10.8009 16.48 10.8009ZM12 10.8009C11.34 10.8009 10.8 11.3399 10.8 11.9999C10.8 12.6599 11.34 13.1999 12 13.1999C12.66 13.1999 13.2 12.6599 13.2 11.9999C13.2 11.3399 12.66 10.8009 12 10.8009ZM7.52 10.8009C6.86 10.8009 6.32 11.3399 6.32 11.9999C6.32 12.6599 6.86 13.1999 7.52 13.1999C8.18 13.1999 8.72 12.6599 8.72 11.9999C8.72 11.3399 8.18 10.8009 7.52 10.8009Z" fill="#6817FF"/>
+            </svg>
+        </div>      
+        <div class="absolute right-0 top-0 flex flex-col gap-4 border rounded-lg bg-white p-4 translate-y-[107px] mobileMenu hidden">
+            <ul class="flex xl:hidden flex-1 flex-col gap-4">
+                {% for item in itemsMenu %}
+                    {% include '/components/header/front/_item_header.html.twig' with
+                        {
+                            'text': item[0],
+                            'route': item[1],
+                            'controller': item[2],
+                            'svg': item[3]
+                        }
+                    %}
+                {% endfor %}
+            </ul>
+            <div class="flex xl:hidden flex-1 flex-col gap-4">
+                {% if app.user %}
+                    {% include '/components/header/front/_item_account_header.html.twig' with
+                        {
+                            'text': app.user.firstname,
+                            'route': 'app_account_show',
+                            'username': app.user.username,
+                            'svg': '<svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.1739C16.3386 15.1739 20 15.8789 20 18.599C20 21.32 16.3146 22 12 22C7.66237 22 4 21.295 4 18.575C4 15.8539 7.68538 15.1739 12 15.1739ZM12 2C14.9391 2 17.294 4.35402 17.294 7.29105C17.294 10.2281 14.9391 12.5831 12 12.5831C9.0619 12.5831 6.70601 10.2281 6.70601 7.29105C6.70601 4.35402 9.0619 2 12 2Z" fill="#FCFAF9"/></svg>'
+                        }
+                    %}
+                    {% if 'ROLE_ADMIN' in app.user.roles %}
+                        {% include '/components/header/front/_item_admin_header.html.twig' with
+                            {
+                                'text': 'Admin',
+                                'route': 'app_admin_dashboard',
+                                'svg': '<svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92009 13.4697C9.33009 13.4697 10.4601 14.6107 10.4601 16.0307V19.4397C10.4601 20.8497 9.33009 21.9997 7.92009 21.9997H4.54009C3.14009 21.9997 2.00009 20.8497 2.00009 19.4397V16.0307C2.00009 14.6107 3.14009 13.4697 4.54009 13.4697H7.92009ZM19.4602 13.4697C20.8602 13.4697 22.0002 14.6107 22.0002 16.0307V19.4397C22.0002 20.8497 20.8602 21.9997 19.4602 21.9997H16.0802C14.6702 21.9997 13.5402 20.8497 13.5402 19.4397V16.0307C13.5402 14.6107 14.6702 13.4697 16.0802 13.4697H19.4602ZM7.92009 2C9.33009 2 10.4601 3.15 10.4601 4.561V7.97C10.4601 9.39 9.33009 10.53 7.92009 10.53H4.54009C3.14009 10.53 2.00009 9.39 2.00009 7.97V4.561C2.00009 3.15 3.14009 2 4.54009 2H7.92009ZM19.4602 2C20.8602 2 22.0002 3.15 22.0002 4.561V7.97C22.0002 9.39 20.8602 10.53 19.4602 10.53H16.0802C14.6702 10.53 13.5402 9.39 13.5402 7.97V4.561C13.5402 3.15 14.6702 2 16.0802 2H19.4602Z" fill="#FCFAF9"/></svg>'
+                            }
+                        %}
+                    {% endif %}
+                {% else %}
+                    {% include '/components/header/front/_item_account_header.html.twig' with
+                        {
+                            'text': 'Mon compte',
+                            'route': 'app_login',
+                            'controller': 'TicketController',
+                            'svg': '<svg class="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.1739C16.3386 15.1739 20 15.8789 20 18.599C20 21.32 16.3146 22 12 22C7.66237 22 4 21.295 4 18.575C4 15.8539 7.68538 15.1739 12 15.1739ZM12 2C14.9391 2 17.294 4.35402 17.294 7.29105C17.294 10.2281 14.9391 12.5831 12 12.5831C9.0619 12.5831 6.70601 10.2281 6.70601 7.29105C6.70601 4.35402 9.0619 2 12 2Z" fill="#6817FF"/></svg>'
+                        }
+                    %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 </nav>
 
