@@ -32,7 +32,6 @@ class UserController extends AbstractController
                 $users[$i]->getUsername(),
                 $users[$i]->getEmail(),
                 $users[$i]->getRoles(),
-                $users[$i]->getPicture(),
             ];
             array_push($datas[$i]['data'],$array);
         }

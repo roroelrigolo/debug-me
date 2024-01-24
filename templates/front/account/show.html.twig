@@ -19,6 +19,7 @@
 
         {% if app.user.username == user.username %}
             {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Modifier mon compte', 'route': 'app_account_edit', 'route_parameter': {0:{'name':'username','value':user.username}}} %}
+            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Déconnexion', 'route': 'app_logout'} %}
         {% endif %}
 
         {# Membre + Email #}
