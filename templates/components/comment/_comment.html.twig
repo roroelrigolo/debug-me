@@ -5,6 +5,10 @@
             <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':ticket.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
             <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
         </div>
+        {% if app.user.username == comment.author.username and ticket.statut.id == 1 %}
+            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Editer le commentaire', 'route': 'app_ticket_comment_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}, 1:{'name':'id','value':comment.id}}} %}
+            {% include 'front/ticket/comment/_delete_form.html.twig' %}
+        {% endif %}
         {% if controllerPlace == "Admin" %}
             {% include 'components/button/_btn_red.html.twig' with
                 {

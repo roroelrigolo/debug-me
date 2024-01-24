@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_ticket_close', {'uuid': ticket.uuid}) }}" onsubmit="return confirm('Voulez vous vraiment clore votre ticket : {{ ticket.title }} ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('close' ~ ticket.id) }}">
+    {% include 'components/button/_btn_primary.html.twig' with {'tag': 'button', 'text': "Clore le ticket"} %}
+</form>

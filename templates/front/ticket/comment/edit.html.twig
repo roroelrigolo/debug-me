@@ -15,33 +15,14 @@
                 </div>
             </div>
 
-            {% if app.user.username == ticket.author.username %}
-                <div class="flex justify-center gap-4 w-full">
-                    {% if ticket.statut.id == 1  %}
-                        {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Editer le ticket', 'route': 'app_ticket_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}}} %}
-                        {% include 'front/ticket/_close_form.html.twig' %}
-                    {% endif %}
-                    {% include 'front/ticket/_delete_form.html.twig' %}
-                </div>
-            {% endif %}
-
             <div class="flex flex-col items-start gap-4 w-full">
                 <p class="font-bungee text-xl">Question principale</p>
                 {% include 'components/ticket/_ticket_content.html.twig' with {'comment': ticket }  %}
             </div>
 
-            <div class="flex flex-col items-start gap-4 w-full">
-                <p class="font-bungee text-xl"> {{ ticket.comments|length }} commentaires</p>
-                <div class="flex flex-col items-start gap-4 w-full">
-                    {% for comment in ticket.comments|sort((a, b) => a.updatedAt <=> b.updatedAt) %}
-                        {% include 'components/comment/_comment.html.twig' with {'comment': comment }  %}
-                    {% endfor %}
-                </div>
-            </div>
-
             <div class="flex flex-col items-start gap-4 w-full">        
-                <p class="font-bungee text-xl">Ajouter un commentaire</p>
-                {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Ajouter mon commentaire"} %}
+                <p class="font-bungee text-xl">Editer votre commentaire</p>
+                {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Editer mon commentaire"} %}
             </div>
         </div>
     </div>

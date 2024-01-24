@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_ticket_comment_delete', {'uuid':ticket.uuid,'id': comment.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer le commentaire : {{ comment.id }} ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+    {% include 'components/button/_btn_red.html.twig' with {'tag': 'button', 'text': "Supprimer le commentaire"} %}
+</form>

@@ -10,14 +10,11 @@
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-8 text-center">
                     <h1 class="font-bungee text-5xl">Derniers tickets</h1>
-                    <div class="flex justify-center items-center">
-                        {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
-                    </div>
-                    {% for message in app.flashes('success') %}
-                        <div class="my-4">
-                            {% include 'components/alert/_success.html.twig' %}
+                    {% if app.user %}
+                        <div class="flex justify-center items-center">
+                            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Ajouter un nouveau Ticket', 'route': 'app_ticket_new'} %}
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
                     {% for ticket in tickets %}

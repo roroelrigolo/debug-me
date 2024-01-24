@@ -1,0 +1,12 @@
+{% extends '/front/base.html.twig' %}
+
+{% block title %}Ticket{% endblock %}
+
+{% block body %}
+    <div class="px-16 lg:px-64 py-16 flex justify-center">
+        <div class="flex flex-col items-center gap-4">
+            <h1 class="font-bungee text-3xl	mb-4">Editer mon ticket</h1>
+            {% include 'front/ticket/_form.html.twig' with {'text_btn': "Editer mon ticket"} %}
+        </div>
+    </div>
+{% endblock %}
