@@ -2,7 +2,7 @@
 <div class="border rounded-xl p-4 mb-4 w-full">
     <div class="flex justify-between mb-4">
         <div class="flex items-center">
-            <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':ticket.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
+            <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':comment.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
             <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
         </div>
         {% if app.user.username == comment.author.username and ticket.statut.id == 1 %}
