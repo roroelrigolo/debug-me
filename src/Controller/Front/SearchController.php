@@ -15,7 +15,7 @@ class SearchController extends AbstractController
     #[Route('/search', name: 'app_search')]
     public function search(Request $request, TicketRepository $ticketRepository, TagRepository $tagRepository): Response
     {
-        $tickets = $ticketRepository->findAll();
+        $tickets = $ticketRepository->findBy([],['updated_at'=>'DESC']);
 
         $defaultData = null;
         $nameSearch = "";
