@@ -39,10 +39,12 @@
                 </div>
             </div>
 
-            <div class="flex flex-col items-start gap-4 w-full">        
-                <p class="font-bungee text-xl">Ajouter un commentaire</p>
-                {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Ajouter mon commentaire"} %}
-            </div>
+            {% if ticket.statut.id == 1  %}
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <p class="font-bungee text-xl">Ajouter un commentaire</p>
+                    {% include 'front/ticket/comment/_form.html.twig' with {'text_btn': "Ajouter mon commentaire"} %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
