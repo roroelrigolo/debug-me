@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            {% if app.user.username == ticket.author.username %}
+            {% if app.user and app.user.username == ticket.author.username %}
                 <div class="flex justify-center gap-4 w-full">
                     {% if ticket.statut.id == 1  %}
                         {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Editer le ticket', 'route': 'app_ticket_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}}} %}
