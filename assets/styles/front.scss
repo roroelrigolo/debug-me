@@ -25,7 +25,7 @@
   animation: slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-input[type=radio]:checked+label, input[type=checkbox]:checked+label {
+input[type=radio]:checked+label, input[type=checkbox]:checked+label:not([class*="tertiary"]) {
   background-color: #6817FF;
   color: #FCFAF9;
 }
