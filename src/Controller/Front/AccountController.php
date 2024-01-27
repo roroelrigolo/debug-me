@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 #[Route('/account')]
 class AccountController extends AbstractController
 {
-    #[Route('/{username}', name: 'app_account_show', requirements: ['\w+'], methods: ['GET'])]
+    #[Route('/{username}', name: 'app_account_show', requirements: ['username' => '\w+'], methods: ['GET'])]
     public function show(
         User $user, UserRepository $userRepository): Response
     {
@@ -26,7 +26,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/{username}/edit', name: 'app_account_edit', requirements: ['\w+'], methods: ['GET', 'POST'])]
+    #[Route('/{username}/edit', name: 'app_account_edit', requirements: ['username' => '\w+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, UserRepository $userRepository, User $user, SluggerInterface $slugger, Security $security): Response
     {
         if ($user->getUsername() !== $security->getUser()->getUsername()) {
