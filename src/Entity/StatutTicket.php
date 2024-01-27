@@ -18,9 +18,6 @@ class StatutTicket
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $color = null;
-
     #[ORM\OneToMany(mappedBy: 'statut', targetEntity: Ticket::class)]
     private Collection $tickets;
 
@@ -45,19 +42,7 @@ class StatutTicket
 
         return $this;
     }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): static
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection<int, Ticket>
      */
