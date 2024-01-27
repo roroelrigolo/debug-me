@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/ticket')]
 class TicketController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_ticket')]
+    #[Route('/', name: 'app_admin_ticket', methods: ['GET'])]
     public function index(TicketRepository $ticketRepository): Response
     {
         $tickets = $ticketRepository->findBy([],['updated_at'=>'DESC']);
@@ -63,7 +63,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_ticket_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_ticket_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, TicketRepository $ticketRepository, Ticket $ticket): Response
     {
         $form = $this->createForm(TicketFormType::class, $ticket);
@@ -81,7 +81,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/comment', name: 'app_admin_ticket_comment', methods: ['GET', 'POST'])]
+    #[Route('/{id}/comment', name: 'app_admin_ticket_comment', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function comment(Request $request, Ticket $ticket, CommentRepository $commentRepository): Response
     {
         $form = $this->createForm(TicketFormType::class, $ticket);
@@ -96,7 +96,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/comment/{idComment}/edit', name: 'app_admin_ticket_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/comment/{idComment}/edit', name: 'app_admin_ticket_comment_edit', requirements: ['id' => '\d+', 'idComment' => '\d+'], methods: ['GET', 'POST'])]
     public function commentEdit(
         #[MapEntity(mapping:['id'=>'id'])] Ticket $ticket,
         #[MapEntity(mapping:['idComment'=>'id'])] Comment $comment,
@@ -119,7 +119,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/comment/{idComment}', name: 'app_admin_ticket_comment_delete', methods: ['POST'])]
+    #[Route('/{id}/comment/{idComment}', name: 'app_admin_ticket_comment_delete', requirements: ['id' => '\d+', 'idComment' => '\d+'], methods: ['POST'])]
     public function commentDelete(Request $request, Ticket $ticket, Comment $comment, CommentRepository $commentRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
@@ -129,7 +129,7 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_admin_ticket_comment', ['id'=>$ticket->getId()], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}', name: 'app_admin_ticket_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_ticket_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Ticket $ticket, TicketRepository $ticketRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {

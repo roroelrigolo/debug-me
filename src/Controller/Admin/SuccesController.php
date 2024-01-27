@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/succes')]
 class SuccesController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_succes')]
+    #[Route('/', name: 'app_admin_succes', methods: ['GET'])]
     public function index(SuccesRepository $succesRepository): Response
     {
         $succes = $succesRepository->findBy([],['name'=>'ASC']);
@@ -54,7 +54,7 @@ class SuccesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_succes_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_succes_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, SuccesRepository $succesRepository, Succes $succes): Response
     {
         $form = $this->createForm(SuccesFormType::class, $succes);
@@ -73,7 +73,7 @@ class SuccesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_succes_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_succes_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Succes $succes, SuccesRepository $succesRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$succes->getId(), $request->request->get('_token'))) {

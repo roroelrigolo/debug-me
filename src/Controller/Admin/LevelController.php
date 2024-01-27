@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/level')]
 class LevelController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_level')]
+    #[Route('/', name: 'app_admin_level', methods: ['GET'])]
     public function index(LevelRepository $levelRepository): Response
     {
         $levels = $levelRepository->findBy([],['step'=>'ASC']);
@@ -55,7 +55,7 @@ class LevelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_level_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_level_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, LevelRepository $levelRepository, Level $level): Response
     {
         $form = $this->createForm(LevelFormType::class, $level);
@@ -73,7 +73,7 @@ class LevelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_level_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_level_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Level $level, LevelRepository $levelRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$level->getId(), $request->request->get('_token'))) {

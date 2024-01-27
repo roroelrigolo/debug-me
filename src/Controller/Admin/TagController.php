@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/tag')]
 class TagController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_tag')]
+    #[Route('/', name: 'app_admin_tag', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
     {
         $tags = $tagRepository->findBy([],['name'=>'ASC']);
@@ -53,7 +53,7 @@ class TagController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_tag_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_tag_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, TagRepository $tagRepository, Tag $tag): Response
     {
         $form = $this->createForm(TagFormType::class, $tag);
@@ -71,7 +71,7 @@ class TagController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_tag_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_tag_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Tag $tag, TagRepository $tagRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {

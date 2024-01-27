@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 #[Route('/ticket')]
 class TicketController extends AbstractController
 {
-    #[Route('/', name: 'app_ticket')]
+    #[Route('/', name: 'app_ticket', methods: ['GET'])]
     public function index(TicketRepository $ticketRepository): Response
     {
         $tickets = $ticketRepository->findBy([],['updated_at'=>'DESC']);
@@ -71,7 +71,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{uuid}/comment/edit/{id}', name: 'app_ticket_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{uuid}/comment/edit/{id}', name: 'app_ticket_comment_edit', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', 'id' => '\d+'], methods: ['GET', 'POST'])]
     public function editComment(Request $request, $uuid, $id, TicketRepository $ticketRepository, StatutTicketRepository $statutTicketRepository,
                          Point $pointService, CommentRepository $commentRepository, Security $security): Response
     {
@@ -99,7 +99,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/{uuid}/comment/delete/{id}', name: 'app_ticket_comment_delete', methods: ['POST'])]
+    #[Route('/{uuid}/comment/delete/{id}', name: 'app_ticket_comment_delete', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', 'id' => '\d+'], methods: ['POST'])]
     public function deleteComment(Request $request, $uuid, $id, TicketRepository $ticketRepository, CommentRepository $commentRepository, Security $security): Response
     {
         $ticket = $ticketRepository->findOneBy(['uuid'=>$uuid]);
@@ -116,7 +116,7 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_ticket_show', ['uuid'=>$uuid], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/edit/{uuid}', name: 'app_ticket_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit/{uuid}', name: 'app_ticket_edit', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Ticket $ticket, TicketRepository $ticketRepository, Security $security): Response
     {
         if ($ticket->getAuthor()->getUsername() !== $security->getUser()->getUsername()) {
@@ -140,7 +140,7 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/close/{uuid}', name: 'app_ticket_close', methods: ['POST'])]
+    #[Route('/close/{uuid}', name: 'app_ticket_close', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['POST'])]
     public function close(Request $request, Ticket $ticket, TicketRepository $ticketRepository, StatutTicketRepository $statutTicketRepository, Security $security): Response
     {
         if ($ticket->getAuthor()->getUsername() !== $security->getUser()->getUsername()) {
@@ -155,7 +155,7 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_ticket_show', ['uuid'=>$ticket->getUuid()], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/delete/{uuid}', name: 'app_ticket_delete', methods: ['POST'])]
+    #[Route('/delete/{uuid}', name: 'app_ticket_delete', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['POST'])]
     public function delete(Request $request, Ticket $ticket, TicketRepository $ticketRepository, CommentRepository $commentRepository, Security $security): Response
     {
         if ($ticket->getAuthor()->getUsername() !== $security->getUser()->getUsername()) {
@@ -174,7 +174,7 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_ticket', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{uuid}', name: 'app_ticket_show')]
+    #[Route('/{uuid}', name: 'app_ticket_show', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['GET'])]
     public function show(Request $request, Ticket $ticket, CommentRepository $commentRepository, Point $pointService): Response
     {
         $comment = new Comment();

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    #[Route('/search', name: 'app_search')]
+    #[Route('/search', name: 'app_search', methods: ['GET'])]
     public function search(Request $request, TicketRepository $ticketRepository, TagRepository $tagRepository): Response
     {
         $tickets = $ticketRepository->findBy([],['updated_at'=>'DESC']);

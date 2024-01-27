@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RankingController extends AbstractController
 {
-    #[Route('/ranking', name: 'app_ranking')]
+    #[Route('/ranking', name: 'app_ranking', methods: ['GET'])]
     public function rankingPoints(UserRepository $userRepository): Response
     {
         $users = $userRepository->findBy([],['points'=>'DESC']);
