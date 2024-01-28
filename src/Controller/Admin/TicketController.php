@@ -126,7 +126,10 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{id}/comment/{idComment}', name: 'app_admin_ticket_comment_delete', requirements: ['id' => '\d+', 'idComment' => '\d+'], methods: ['POST'])]
-    public function commentDelete(Request $request, Ticket $ticket, Comment $comment, CommentRepository $commentRepository): Response
+    public function commentDelete(
+        #[MapEntity(mapping:['id'=>'id'])] Ticket $ticket,
+        #[MapEntity(mapping:['idComment'=>'id'])] Comment $comment,
+        Request $request, CommentRepository $commentRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $commentRepository->remove($comment);
