@@ -36,6 +36,14 @@ input[type=radio]:checked+label, input[type=checkbox]:checked+label:not([class*=
   stroke-dashoffset: var(--percentage);
 }
 
+div pre[class*="language-"],
+div pre code[class*="language-"] {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: justify;
+  font-size: 12px;
+}
+
 /**
  * ----------------------------------------
  * animation slide-left
