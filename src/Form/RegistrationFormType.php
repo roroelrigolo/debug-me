@@ -57,12 +57,12 @@ class RegistrationFormType extends AbstractType
                 new UniqueEntity([
                     'entityClass' => User::class,
                     'fields' => 'username',
-                    'message' => 'Ce pseudo a déjà était utilisé. Veuillez en choisir un autre',
+                    'message' => 'Ce pseudo a déjà été utilisé. Veuillez en choisir un autre',
                 ]),
                 new UniqueEntity([
                     'entityClass' => User::class,
                     'fields' => 'email',
-                    'message' => 'Cet email a déjà était utilisé. Veuillez en choisir un autre',
+                    'message' => 'Cet email a déjà été utilisé. Veuillez en choisir un autre',
                 ]),
             ],
         ]);
