@@ -30,6 +30,15 @@ input[type=radio]:checked+label, input[type=checkbox]:checked+label:not([class*=
   color: #FCFAF9;
 }
 
+.grid-cols-admin-layout {
+  input[type=checkbox], input[type=radio] {
+    &:checked+label::before {
+      border-color: #F71735;
+      border-width: 6px;
+    }
+  }
+}
+
 .progressBar {
   stroke-linecap: round;
   stroke-dasharray: 100;
