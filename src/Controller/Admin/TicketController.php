@@ -7,7 +7,9 @@ use App\Entity\Ticket;
 use App\Form\CommentFormType;
 use App\Form\TicketFormType;
 use App\Repository\CommentRepository;
+use App\Repository\StatutTicketRepository;
 use App\Repository\TicketRepository;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,6 +54,9 @@ class TicketController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setUuid(Uuid::uuid4()->toString());
+            $ticket->setCreatedAt(new \DateTimeImmutable());
+            $ticket->setUpdatedAt(new \DateTimeImmutable());
             $ticketRepository->add($ticket);
             $this->addFlash('success', 'Ticket ajouté avec succès');
             return $this->redirectToRoute('app_admin_ticket', [], Response::HTTP_SEE_OTHER);
@@ -71,6 +76,7 @@ class TicketController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ticketRepository->add($ticket);
+            $ticket->setUpdatedAt(new \DateTimeImmutable());
             $this->addFlash('success', 'Ticket modifié avec succès');
             return $this->redirectToRoute('app_admin_ticket', [], Response::HTTP_SEE_OTHER);
         }

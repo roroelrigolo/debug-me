@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\StatutTicket;
 use App\Entity\Tag;
 use App\Entity\Ticket;
 use App\Entity\User;
@@ -36,6 +37,14 @@ class TicketFormType extends AbstractType
             ->add('content', null, array(
                 'label' => "Contenu",
                 'attr' => ['rows' => 10],
+            ))
+            ->add('statut', EntityType::class, array(
+                'label' => "Statut",
+                'class'     => StatutTicket::class,
+                'expanded'  => false,
+                'multiple'  => false,
+                'choice_label' => 'name',
+                'choice_value' => 'id',
             ))
             ->add('author', EntityType::class, array(
                 'label' => "Auteur",

@@ -13,23 +13,22 @@
             }
         )
     }}
-    <div class="{{ rowClasses }}">
-        <label class="font-bold">Tags</label>
-        <div class="flex flex-wrap gap-4">
-            {% for label, value in field_choices(form.tags) %}
-                <label>
-                    <input
-                        class="hidden peer"
-                        type="checkbox"
-                        name="{{field_name(form.tags)}}"
-                        value="{{value}}"
-                    />
-                    <span class="flex cursor-pointer items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-tertiary before:peer-checked:border-[6px]">
-                        {{ label }}
-                    </span>
-                </label>
-            {% endfor %}
-        </div>
+    <div class="{{rowClasses}}">
+        {{ form_label(form.tags, null, { 'label_attr' : { 'class' : 'font-bold' }}) }}
+
+        {% block choice_widget %}
+            <div class="flex flex-wrap gap-4">
+                {% for child in form.tags %}
+                    {{ form_widget(child, {'attr': {'class': 'hidden'}}) }}
+                    {{ form_label(
+                        child,
+                        null,
+                        { 'label_attr': { 'class': "flex cursor-pointer items-center gap-4 before:content-[''] before:w-[20px] before:h-[20px] before:rounded-lg before:bg-white before:border-2 before:peer-checked:border-tertiary before:peer-checked:border-[6px]" }}
+                    )
+                    }}
+                {% endfor %}
+            </div>
+        {% endblock %}
     </div>
     {{ 
         form_row(
@@ -50,6 +49,16 @@
                 'row_attr': {'class': rowClasses }
             }
         ) 
+    }}
+    {{
+    form_row(
+        form.statut,
+        {
+            'label_attr': {'class': 'font-bold'},
+            'attr': {'class': inputClasses},
+            'row_attr': {'class': rowClasses }
+        }
+    )
     }}
 <p><i>Si vous voulez ajouter du code, veuillez utiliser les balises < code > et < /code ></i></p>
 <div class="flex flex-col items-start gap-4">
