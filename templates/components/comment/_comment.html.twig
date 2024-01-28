@@ -1,12 +1,12 @@
 {% set controllerPlace = app.request.attributes.get("_controller")|split('\\')[2] %}
 <div class="border rounded-xl p-4 mb-4 w-full">
-    <div class="flex justify-between mb-4">
+    <div class="flex flex-col xl:flex-row justify-between items-start gap-4 mb-4">
         <div class="flex items-center">
             <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':comment.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
             <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
         </div>
         {% if app.user and app.user.username == comment.author.username and ticket.statut.id == 1 %}
-            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Editer le commentaire', 'route': 'app_ticket_comment_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}, 1:{'name':'id','value':comment.id}}} %}
+            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Éditer', 'tiny': true, 'route': 'app_ticket_comment_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}, 1:{'name':'id','value':comment.id}}} %}
             {% include 'front/ticket/comment/_delete_form.html.twig' %}
         {% endif %}
         {% if controllerPlace == "Admin" %}
