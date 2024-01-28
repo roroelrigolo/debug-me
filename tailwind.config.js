@@ -26,6 +26,7 @@ module.exports = {
       boxShadow: {
         'ticket': '0px 1px 0px 0px rgba(0, 0, 0, 0.50)',
         'ticket-hover': '0px 4px 0px 0px rgba(0, 0, 0, 0.50)',
+        'table': 'inset 2px 0 0 black, inset -2px 0 0 black'
       }
     },
   },
