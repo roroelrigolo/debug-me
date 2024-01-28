@@ -15,7 +15,7 @@
                 <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
             <form class="flex flex-col justify-center gap-4 lg:w-3/4" action="{{ path('app_login') }}" method="post">
-                {% include 'components/input/_input.html.twig' with { 'id': 'username', 'name': '_username', 'title': 'Email', 'type': 'text', 'value': last_username } %}
+                {% include 'components/input/_input.html.twig' with { 'id': 'username', 'name': '_username', 'title': 'Email', 'type': 'text', 'value': '' } %}
                 {% include 'components/input/_input.html.twig' with { 'id': 'password', 'name': '_password', 'type': 'password', 'title': 'Mot de passe', 'value': '' } %}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <p>Pas encore de compte ?<a class="text-primary font-bold underline ml-1" href="/register">Inscrivez-vous</a></p>

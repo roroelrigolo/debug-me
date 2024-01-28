@@ -139,9 +139,14 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_ticket_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function delete(Request $request, Ticket $ticket, TicketRepository $ticketRepository): Response
+    public function delete(Request $request, Ticket $ticket, TicketRepository $ticketRepository, CommentRepository $commentRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ticket->getId(), $request->request->get('_token'))) {
+            //On supprime les commentaires liés
+            $comments = $ticket->getComments();
+            foreach ($comments as $comment) {
+                $commentRepository->remove($comment);
+            }
             $ticketRepository->remove($ticket);
             $this->addFlash('success', 'Ticket supprimé avec succès');
         }
