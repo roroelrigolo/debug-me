@@ -5,10 +5,6 @@
             <p class="hover:text-primary"><a href="{{ path('app_account_show', {'username':comment.author.username}) }}">@{{ comment.author.username }} - {{ comment.author.level.name }}</a></p>
             <p class="text-darklight px-2">{{ comment.updatedAt|ago(locale='fr')}}</p>
         </div>
-        {% if app.user and app.user.username == comment.author.username and ticket.statut.id == 1 %}
-            {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Éditer', 'tiny': true, 'route': 'app_ticket_comment_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}, 1:{'name':'id','value':comment.id}}} %}
-            {% include 'front/ticket/comment/_delete_form.html.twig' %}
-        {% endif %}
         {% if controllerPlace == "Admin" %}
             {% include 'components/button/_btn_red.html.twig' with
                 {
@@ -19,6 +15,11 @@
                     'route_parameter': {0:{'name':'id','value':ticket.id},1:{'name':'idComment','value':comment.id}}
                 }
             %}
+        {% else %}
+            {% if app.user and app.user.username == comment.author.username and ticket.statut.id == 1 %}
+                {% include '/components/button/_btn_primary.html.twig' with {'tag': 'a', 'text': 'Éditer', 'tiny': true, 'route': 'app_ticket_comment_edit', 'route_parameter': {0:{'name':'uuid','value':ticket.uuid}, 1:{'name':'id','value':comment.id}}} %}
+                {% include 'front/ticket/comment/_delete_form.html.twig' %}
+            {% endif %}
         {% endif %}
     </div>
     {% set content = comment.content|html_entity_decode %}

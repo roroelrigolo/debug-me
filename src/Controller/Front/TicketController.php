@@ -41,6 +41,7 @@ class TicketController extends AbstractController
         $ticket = new Ticket();
         $form = $this->createForm(TicketFormType::class, $ticket);
         $form->remove('author');
+        $form->remove('statut');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -125,6 +126,7 @@ class TicketController extends AbstractController
 
         $form = $this->createForm(TicketFormType::class, $ticket);
         $form->remove('author');
+        $form->remove('statut');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
