@@ -13,6 +13,9 @@
                 {% for ticket in tickets %}
                     {% include '/components/ticket/_ticket_single.html.twig' with {'ticket': ticket} %}
                 {% endfor %}
+                {% if tickets is empty %}
+                    <p class="col-span-2">Aucun ticket à afficher. ✨</p>
+                {% endif %}
             </div>
         </div>
     </div>
