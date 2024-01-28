@@ -174,7 +174,7 @@ class TicketController extends AbstractController
         return $this->redirectToRoute('app_ticket', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{uuid}', name: 'app_ticket_show', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['GET'])]
+    #[Route('/{uuid}', name: 'app_ticket_show', requirements: ['uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'], methods: ['GET', 'POST'])]
     public function show(Request $request, Ticket $ticket, CommentRepository $commentRepository, Point $pointService): Response
     {
         $comment = new Comment();
